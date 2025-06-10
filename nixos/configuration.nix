@@ -147,6 +147,16 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true; # Allows gpg-agent to also function as an SSH agent
+    pinentryPackage = pkgs.pinentry-curses; # Or pkgs.pinentry-qt, pkgs.pinentry-gnome3 etc.
+    # This ensures the agent is started and correctly configured
+    # You might also want to enable socket activation
+    # enableExtraSocket = true; # For older versions or specific setups
+    # enableBrowserSocket = true; # If you use browser extensions that interact with GPG
+  };
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;

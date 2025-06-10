@@ -137,6 +137,44 @@
   programs.zsh.enable = true;
   home.shell = zsh;
 
+  programs.gnupg = {
+    enable = true;
+    # You can configure gpg-agent settings here too, for user-specific overrides
+    # agent = {
+    #   enable = true; # Home Manager's specific option for user-level agent config
+    #   enableSSHSupport = true;
+    #   pinentryPackage = pkgs.pinentry-curses;
+    # };
+    # Configure gpg.conf settings declaratively:
+    settings = {
+      default-key = "YOUR_GPG_KEY_ID_HERE"; # Your primary GPG key ID
+      # ... other GPG settings like trust-model, etc.
+    };
+    # You can also add trusted public keys for others if needed
+    # trustedKeys = [
+    #   {
+    #     fingerprint = "0x...FINGERPRINT...";
+    #     file = pkgs.fetchurl { url = "https://example.com/public_key.asc"; sha256 = "..."; };
+    #   }
+    # ];
+  };
+  
+  # For Git signing with your GPG key (also in home.nix)
+  programs.git = {
+    enable = true;
+    userName = "ong3r1";
+    userEmail = "binmawe@gmail.com";
+    signing = {
+      key = "YOUR_GPG_KEY_ID_HERE"; # Same GPG key ID
+      signByDefault = true;
+    };
+    # Optional: Make Git use gpg-agent for signing
+    extraConfig = {
+      commit.gpgsign = true;
+      gpg.program = "gpg"; # Ensure it uses the system's gpg
+    };
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
