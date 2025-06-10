@@ -68,25 +68,114 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
-  # FIXME: Add the rest of your current configuration
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-  # TODO: Set your hostname
-  networking.hostName = "your-hostname";
+  # Use latest kernel.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
+  networking.hostName = "nixos"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
+  # Set your time zone.
+  time.timeZone = "Africa/Nairobi";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_GB.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_GB.UTF-8";
+    LC_IDENTIFICATION = "en_GB.UTF-8";
+    LC_MEASUREMENT = "en_GB.UTF-8";
+    LC_MONETARY = "en_GB.UTF-8";
+    LC_NAME = "en_GB.UTF-8";
+    LC_NUMERIC = "en_GB.UTF-8";
+    LC_PAPER = "en_GB.UTF-8";
+    LC_TELEPHONE = "en_GB.UTF-8";
+    LC_TIME = "en_GB.UTF-8";
+  };
+
+  # Enable the X11 windowing system.
+  # You can disable this if you're only using the Wayland session.
+  services.xserver.enable = true;
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+  # enabling xdg.portal for hyprland
+  xdg.portal.enable = true; # Enable XDG portals for better integration with applications
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ]; # Use Hyprland's portal implementation
+
+  # Enable hyprland, a dynamic tiling Wayland compositor.
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true; # Enable XWayland support for Hyprland
+  }
+
+  environment.sessionVariables = {
+    XDG_SESSION_DESKTOP = "hyprland";
+    XDG_SESSION_TYPE = "wayland";
+    XDG_CURRENT_DESKTOP = "hyprland";
+    WLR_NO_HARDWARE_CURSORS = "1"; # Disable hardware cursors for Hyprland
+    nixos_ozone_wl = "1"; # Enable Ozone Wayland for Hyprland
+  };
+
+  hardware = {
+    # Opengl
+    opengl = {
+      enable = true; # Enable OpenGL support
+      driSupport = true; # Enable DRI support for hardware acceleration
+      driSupport32Bit = true; # Enable 32-bit DRI support for compatibility
+    };
+  }
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
+
   users.users = {
-    # FIXME: Replace with your username
-    your-username = {
+    ong3r1 = {
       # TODO: You can set an initial password for your user.
       # If you do, you can skip setting a root password by passing '--no-root-passwd' to nixos-install.
       # Be sure to change it (using passwd) after rebooting!
-      initialPassword = "correcthorsebatterystaple";
+      # initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
+      description = "Brian Ongeri"
       openssh.authorizedKeys.keys = [
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["wheel"];
+      extraGroups = ["wheel" "networkmanager"];
     };
   };
 
@@ -104,5 +193,5 @@
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "23.05";
+  system.stateVersion = "25.05";
 }

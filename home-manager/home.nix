@@ -21,7 +21,6 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-    chezmoi
     git
     lazygit
     lazydocker
@@ -50,7 +49,7 @@
     # Swww # A Wayland compositor wallpaper manager.
     swww
     # Rofi # A Wayland launcher and application menu.
-    rofi-wayland
+    wofi
     # Network manager applet
     networkmanagerapplet
     grim
@@ -103,49 +102,42 @@
   #  /etc/profiles/per-user/ong3r1/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "neovim";
   };
 
-  # Enable hyprland, a dynamic tiling Wayland compositor.
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true; # Enable XWayland support for Hyprland
-  }
+  wayland.windowManager.hyprland = {
+    enable = true; # This tells Home Manager to apply your user's Hyprland settings
+    # You generally don't need to enable `programs.hyprland` again here if you enabled it system-wide.
+    # The `wayland.windowManager.hyprland` option in Home Manager is specifically for user config.
 
-  environment.sessionVariables = {
-    # Set the default terminal emulator to Alacritty.
-    XDG_SESSION_DESKTOP = "hyprland";
-    XDG_SESSION_TYPE = "wayland";
-    XDG_CURRENT_DESKTOP = "hyprland";
-    WLR_NO_HARDWARE_CURSORS = "1"; # Disable hardware cursors for Hyprland
-    nixos_ozone_wl = "1"; # Enable Ozone Wayland for Hyprland
-  };
-
-  hardware = {
-    # Opengl
-    opengl = {
-      enable = true; # Enable OpenGL support
-      driSupport = true; # Enable DRI support for hardware acceleration
-      driSupport32Bit = true; # Enable 32-bit DRI support for compatibility
+    settings = {
+      "$mod" = "SUPER";
+      bind = [
+        "$mod, RETURN, exec, kitty"
+        "$mod, Q, killactive,"
+        # ... your keybindings
+      ];
+      # ... animations, rules, layouts, etc.
     };
-  }
+
+    extraConfig = ''
+      # Any raw Hyprland config lines not covered by specific options
+      monitor=,preferred,auto,1
+      exec-once = waybar &
+      exec-once = mako &
+    '';
+
+    # Programs that integrate with Hyprland and are user-specific
+    programs.waybar.enable = true;
+    programs.wofi.enable = true;
+    # ...
+  };
 
   # Enable zsh
   programs.zsh.enable = true;
+  home.shell = zsh;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  xdg.portal.enable = true; # Enable XDG portals for better integration with applications
-  xdg.portal.extraPortals = [ "xdg-desktop-portal-hyprland" ]; # Use Hyprland's portal implementation
-
-  sound.enable = true; # Enable sound support
-  security.rtkit.enable = true; # Enable real-time scheduling support
-  security.pipewire = {
-    enable = true; # Enable PipeWire for audio and video support
-    alsa.enable = true; # Enable ALSA support for PipeWire
-    alsa.support32Bit = true; # Enable 32-bit ALSA support for compatibility
-    pulse.enable = true; # Enable PulseAudio compatibility layer for PipeWire
-    jack.enable = true; # Enable JACK compatibility layer for PipeWire
-  };
 }
