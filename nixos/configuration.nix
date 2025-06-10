@@ -125,7 +125,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true; # Enable XWayland support for Hyprland
-  }
+  };
 
   environment.sessionVariables = {
     XDG_SESSION_DESKTOP = "hyprland";
@@ -136,26 +136,15 @@
   };
 
   hardware = {
-    # Opengl
-    opengl = {
-      enable = true; # Enable OpenGL support
-      driSupport = true; # Enable DRI support for hardware acceleration
-      driSupport32Bit = true; # Enable 32-bit DRI support for compatibility
+    graphics = {
+      enable = true;
     };
-  }
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true; # Allows gpg-agent to also function as an SSH agent
-    pinentryPackage = pkgs.pinentry-curses; # Or pkgs.pinentry-qt, pkgs.pinentry-gnome3 etc.
-    # This ensures the agent is started and correctly configured
-    # You might also want to enable socket activation
-    # enableExtraSocket = true; # For older versions or specific setups
-    # enableBrowserSocket = true; # If you use browser extensions that interact with GPG
-  };
+  programs.firefox.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -173,6 +162,8 @@
     #media-session.enable = true;
   };
 
+  programs.zsh.enable = true;
+
   users.users = {
     ong3r1 = {
       # TODO: You can set an initial password for your user.
@@ -180,10 +171,11 @@
       # Be sure to change it (using passwd) after rebooting!
       # initialPassword = "correcthorsebatterystaple";
       isNormalUser = true;
-      description = "Brian Ongeri"
+      description = "Brian Ongeri";
       openssh.authorizedKeys.keys = [
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
+      shell = pkgs.zsh;
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = ["wheel" "networkmanager"];
     };
