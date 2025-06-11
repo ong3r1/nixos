@@ -34,6 +34,9 @@
     vlc
     firefox
     nodejs
+    pyenv
+    bat
+    libsForQt5.qt5ct
     codespell
     neovim
     keepassxc
@@ -77,6 +80,9 @@
   # 1. Enable and configure Zsh as your default shell
   programs.zsh = {
     enable = true;
+    oh-my-zsh = {
+      enable = true;
+    };
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -94,7 +100,7 @@
     };
 
     # tmux
-    ".tmux" = {
+    ".tmux.conf" = {
       source = ../dotfiles/.tmux;
     };
 
@@ -191,7 +197,7 @@
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    pinentry.package = pkgs.pinentry-curses; # Or your preferred pinentry
+    pinentry.package = pkgs.pinentry-qt; # Or your preferred pinentry
     extraConfig = ''
       default-cache-ttl 600
       max-cache-ttl 7200

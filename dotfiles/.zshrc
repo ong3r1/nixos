@@ -71,8 +71,6 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -102,33 +100,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-
-# Add go to path
-export PATH="$PATH:$HOME/go/bin"
-
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-
-# Created by `pipx` on 2024-09-03 18:40:38
-export PATH="$PATH:/home/ong3r1/.local/bin"
-
 # Activating completions
 autoload -U bashcompinit
 bashcompinit
-
-# enable completions for pipx
-eval "$(register-python-argcomplete pipx)"
-
-# Node version manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# Adding go to the path
-export PATH="$PATH:/usr/local/go/bin"
 
 # Cargo initialisation for rust
 alias source_cargo='source ~/.source-cargo.sh'
