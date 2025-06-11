@@ -32,36 +32,17 @@
     zsh
     oh-my-zsh
     vlc
-    firefox
     nodejs
     pyenv
     bat
     libsForQt5.qt5ct
     codespell
     neovim
-    keepassxc
     tmux
     htop
     obsidian
     obs-studio
     kitty
-    hyprland
-    waybar
-    # EWW # A highly customizable widget system for Wayland compositors.
-    eww
-    # Mako # A Wayland notification daemon.
-    mako
-    # Libnotify # A library for creating notifications on Wayland.
-    libnotify
-    # Swww # A Wayland compositor wallpaper manager.
-    swww
-    # Rofi # A Wayland launcher and application menu.
-    wofi
-    # Network manager applet
-    networkmanagerapplet
-    grim
-    slurp
-    wl-clipboard
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -77,21 +58,70 @@
     # '')
   ];
 
+  # Sway
+  wayland.windowManager.sway = {
+    enable = true;
+    config = {
+      terminal = "kitty";
+      menu = "wofi --show-drun";
+      modifier = "Mod4";
+      keybindings = {
+        "$(config.wayland.windowManager.sway.config.modifier)+Return" = "exec kitty";
+        "$(config.wayland.windowManager.sway.config.modifier)+d" = "exec wofi --show drun";
+        "$(config.wayland.windowManager.sway.config.modifier)+Shift+e" = "exec swaymsg exit.";
+        # Brightness
+        "XF86MonBrightnessUp" = "exec brightnessctl set +10%";
+        "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
+        # Volume
+        "XF86AudioRaiseVolume" = "exec pamixer -i 5";
+        "XF86AudioLowerVolume" = "exec pamixer -d 5";
+        "XF86AudioMute" = "exec pamixer -t";
+      };
+      assigns = {
+        "1:Web" = [{app_id = "firefox";}];
+        "2:Kitty" = [{app_id = "kitty";}];
+        "3:Notes" = [{app_id = "obsidian";}];
+      };
+    };
+  };
+
+  services.mako = {
+    enable = true;
+
+    # Optional configs
+    defaultTimeout = 5000;
+    backgroundColor = "#1e1e2e";
+    borderColor = "#89b4fa";
+    borderSize = 2;
+    padding = "10";
+    margin = "10";
+    anchor = "top-right";
+    font = "Fira Code 10";
+  };
+
   # 1. Enable and configure Zsh as your default shell
   programs.zsh = {
     enable = true;
+    enableCompletion = true; # Enable Zsh completion
     oh-my-zsh = {
       enable = true;
+      theme = "robbyrussell"; # You can change this to any other theme you prefer
+    };
+    shellAliases = {
+      # Cargo initialisation for rust
+      source_cargo = "source ~/.source-cargo.sh";
+      # Conda alias
+      init_conda = "source ~/.conda-init.sh";
     };
   };
 
   # FZF integration with Zsh
   programs.fzf = {
     enable = true;
-    enablezshIntegration = true; # This enables FZF integration with Zsh
+    enableZshIntegration = true; # This enables FZF integration with Zsh
     defaultCommand = "fd --type f"; # optional: better file search
     defaultOptions = [
-      "--preview 'bat --style=numbers --color=always --theme=${batTheme} {} | head -500'"
+      "--preview 'bat --style=numbers --color=always --theme=DarkNeon {} | head -500'"
       "--preview-window=right:60%" # adjust as needed
     ];
     # Optional: You can customize the FZF key bindings and completion options
@@ -99,6 +129,74 @@
     #   keyBindings = "default";
     #   completion = "default";
     # };
+  };
+
+  programs.tmux = {
+    enable = true;
+
+    # Set your prefix key and other sane defaults
+    keyMode = "vi";
+    terminal = "screen-256color";
+
+    plugins = [ ]; # No TPM
+
+    extraConfig = ''
+      # Quality of Life
+      set -g mouse on
+      set -g set-clipboard on
+      set -g default-terminal "screen-256color"
+      set-option -sa terminal-overrides ',xterm-256color:Tc'
+
+      # Vim style navigation
+      bind-key h select-pane -L
+      bind-key j select-pane -D
+      bind-key k select-pane -U
+      bind-key l select-pane -R
+      bind-key -r C-h select-window -t :-
+      bind-key -r C-l select-window -t :+
+      unbind C-b
+      set -g prefix2 C-Space
+
+      # Reload config
+      unbind r
+      bind r source-file ~/.tmux.conf
+
+      # Base status bar colours (Gruvbox dark)
+      set -g status on
+      set -g status-interval 5
+      set -g status-justify centre
+      set -g status-style bg=colour235,fg=colour223
+
+      # Window status
+      setw -g window-status-format " #I:#W "
+      setw -g window-status-current-format "#[bg=colour239,fg=colour223]#[bg=colour239,fg=colour223,bold] #I:#W #[bg=colour235,fg=colour239,nobold]"
+      setw -g window-status-style bg=colour235,fg=colour244
+      setw -g window-status-current-style bg=colour239,fg=colour223,bold
+
+      # Pane border
+      set -g pane-border-style fg=colour239
+      set -g pane-active-border-style fg=colour250
+
+      # Message text (when searching or confirming)
+      set -g message-style bg=colour239,fg=colour223
+
+      # Command prompt colours
+      set -g message-command-style bg=colour239,fg=colour223
+
+      # Status Left & Right
+      set -g status-left "#[bg=colour239,fg=colour223,bold] #S #[bg=colour235,fg=colour239,nobold]"
+      set -g status-left-length 40
+
+      set -g status-right "#[bg=colour235,fg=colour239]#[bg=colour239,fg=colour223] %Y-%m-%d  %H:%M #[default]"
+      set -g status-right-length 100
+
+      # Mode-style (copy-mode selection)
+      set -g mode-style bg=colour239,fg=colour223
+
+      # Bell
+      set -g visual-bell on
+      set -g bell-action any
+    '';
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -110,14 +208,10 @@
       recursive = true;
     };
 
-    # ZSH
-    ".zshrc" = {
-      source = ../dotfiles/.zshrc;
-    };
-
-    # tmux
-    ".tmux.conf" = {
-      source = ../dotfiles/.tmux;
+    # Bash Profile
+    ".bash_profile" = {
+      source = ../dotfiles/.bash_profile;
+      executable = true;
     };
 
     # conda init
@@ -162,49 +256,7 @@
   home.sessionVariables = {
     EDITOR = "neovim";
     BAT_THEME = "DarkNeon";
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true; # This tells Home Manager to apply your user's Hyprland settings
-    # You generally don't need to enable `programs.hyprland` again here if you enabled it system-wide.
-    # The `wayland.windowManager.hyprland` option in Home Manager is specifically for user config.
-
-    settings = {
-      "$mod" = "SUPER";
-      bind = [
-        "$mod, RETURN, exec, kitty"
-        "$mod, Q, killactive,"
-        # ... your keybindings
-      ];
-      # ... animations, rules, layouts, etc.
-    };
-
-    extraConfig = ''
-      # Any raw Hyprland config lines not covered by specific options
-      monitor=,preferred,auto,1
-      exec-once = waybar &
-      exec-once = mako &
-    '';
-  };
-  
-  programs.waybar = {
-    enable = true;
-    # Configure Waybar here, e.g.:
-    # settings = {
-    #   "layer" = "top";
-    #   "position" = "top";
-    #   "modules-left" = [ "hyprland/workspaces" "hyprland/window" ];
-    #   # ... etc.
-    # };
-    # style = ""; # Path to CSS file
-    # extraConfig = ""; # Raw JSON for Waybar
-  };
-
-  programs.wofi = {
-    enable = true;
-    # Configure Wofi here, e.g.:
-    # style = ""; # Path to CSS
-    # extraConfig = ""; # Raw Wofi config
+    QT_QPA_PLATFORMTHEME = "qt5ct";
   };
 
   programs.gpg = {

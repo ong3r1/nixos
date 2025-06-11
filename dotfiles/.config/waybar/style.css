@@ -1,0 +1,30 @@
+* {
+  border: none;
+  border-radius: 12px;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 13px;
+  min-height: 0;
+}
+
+#workspaces button {
+  padding: 5px;
+  margin: 3px;
+  border-radius: 10px;
+  background-color: #2e3440;
+  color: #d8dee9;
+}
+
+#pulseaudio, #network, #battery, #clock {
+  background-color: #4c566a;
+  padding: 5px 10px;
+  margin: 3px;
+  color: #eceff4;
+}
+
+#clock {
+  background-color: #81a1c1;
+}
+
+#tray {
+  background-color: #3b4252;
+}

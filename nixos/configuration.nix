@@ -61,7 +61,7 @@
       nix-path = config.nix.nixPath;
     };
     # Opinionated: disable channels
-    channel.enable = false;
+    channel.enable = true;
 
     # Opinionated: make flake registry and nix path match flake inputs
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
@@ -117,25 +117,39 @@
     variant = "";
   };
 
-  # enabling xdg.portal for hyprland
-  xdg.portal.enable = true; # Enable XDG portals for better integration with applications
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ]; # Use Hyprland's portal implementation
+  environment.systemPackages = with pkgs; [
+    keepassxc
+    firefox
+  ];
 
-  # Enable hyprland, a dynamic tiling Wayland compositor.
-  programs.hyprland = {
+  # Sway
+  programs.sway = {
     enable = true;
-    xwayland.enable = true; # Enable XWayland support for Hyprland
-  };
+    extraSessionCommands = ''
+      # Start the applet (make sure it's not running already)
+      if ! pgrep -x nm-applet > /dev/null; then
+        nm-applet &
+      fi
 
-  environment.sessionVariables = {
-    XDG_SESSION_DESKTOP = "hyprland";
-    XDG_SESSION_TYPE = "wayland";
-    XDG_CURRENT_DESKTOP = "hyprland";
-    WLR_NO_HARDWARE_CURSORS = "1"; # Disable hardware cursors for Hyprland
-    nixos_ozone_wl = "1"; # Enable Ozone Wayland for Hyprland
+      keepassxc --minimize &
+    '';
+    extraPackages = with pkgs; [
+      swaylock
+      swayidle
+      wl-clipboard
+      mako              # Notifications
+      waybar
+      brightnessctl
+      networkmanagerapplet
+      pavucontrol
+      playerctl         # Media control
+      wofi              # Application launcher
+    ];
   };
 
   hardware = {
+    pulseaudio.enable = false;
+    bluetooth.enable = true;
     graphics = {
       enable = true;
     };
@@ -144,7 +158,15 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  programs.firefox.enable = true;
+  # Enable blueman to manage bluetooth devices.
+  services.blueman.enable = true;
+
+  security.polkit.enable = true;
+
+  programs.firefox = {
+    enable = true;
+    nativeMessagingHosts.packages = [ pkgs.keepassxc ];
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
