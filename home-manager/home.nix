@@ -22,6 +22,7 @@
     # # "Hello, world!" when run.
     # pkgs.hello
     git
+    gh
     lazygit
     lazydocker
     vscode
