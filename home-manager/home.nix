@@ -89,13 +89,20 @@
     };
 
     # ZSH
-    ".zshrc" = ../dotfiles/.zshrc;
+    ".zshrc" = {
+      source = ../dotfiles/.zshrc;
+    };
 
     # tmux
-    ".tmux" = ../dotfiles/.tmux;
+    ".tmux" = {
+      source = ../dotfiles/.tmux;
+    };
 
     # conda init
-    ".conda-init.sh" = ../dotfiles/.conda-init.sh;
+    ".conda-init.sh" = {
+      source = ../dotfiles/.conda-init.sh;
+      executable = true;
+    };
 
     # kitty
     ".config/kitty" = {
