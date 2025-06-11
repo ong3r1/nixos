@@ -215,6 +215,11 @@
       recursive = true;
     };
 
+    # Waybar
+    ".config/waybar" = {
+      source = ../dotfiles/.config/waybar;
+      recursive = true;
+
     # Bash Profile
     ".bash_profile" = {
       source = ../dotfiles/.bash_profile;
@@ -265,6 +270,10 @@
     BAT_THEME = "DarkNeon";
     QT_QPA_PLATFORMTHEME = "qt5ct";
   };
+
+  programs.waybar = {
+    enable = true;
+  }
 
   programs.gpg = {
     enable = true;
