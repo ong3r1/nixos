@@ -85,6 +85,22 @@
     };
   };
 
+  # FZF integration with Zsh
+  programs.fzf = {
+    enable = true;
+    enablezshIntegration = true; # This enables FZF integration with Zsh
+    defaultCommand = "fd --type f"; # optional: better file search
+    defaultOptions = [
+      "--preview 'bat --style=numbers --color=always --theme=${batTheme} {} | head -500'"
+      "--preview-window=right:60%" # adjust as needed
+    ];
+    # Optional: You can customize the FZF key bindings and completion options
+    # settings = {
+    #   keyBindings = "default";
+    #   completion = "default";
+    # };
+  };
+
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -145,6 +161,7 @@
   #
   home.sessionVariables = {
     EDITOR = "neovim";
+    BAT_THEME = "DarkNeon";
   };
 
   wayland.windowManager.hyprland = {

@@ -110,20 +110,5 @@ alias source_cargo='source ~/.source-cargo.sh'
 # Conda alias
 alias init_conda='source ~/.conda-init.sh'
 
-# Default editor
-export EDITOR='nvim'
-
-# Set up fzf key bindings and fuzzy completion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Set up fzf to use fd
-export FZF_DEFAULT_COMMAND='fd --type file'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type directory"
-export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always --line-range :500 {}'"
-
-# Set bat theme colour
-export BAT_THEME="DarkNeon"
-
 # QT Theming
 export QT_QPA_PLATFORMTHEME=qt5ct
