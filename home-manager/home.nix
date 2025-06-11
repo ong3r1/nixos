@@ -33,6 +33,8 @@
     oh-my-zsh
     vlc
     firefox
+    nodejs
+    codespell
     neovim
     keepassxc
     tmux
@@ -72,76 +74,34 @@
     # '')
   ];
 
-    # 1. Enable and configure Zsh as your default shell
+  # 1. Enable and configure Zsh as your default shell
   programs.zsh = {
     enable = true;
-
-    # Optional: Define aliases for your shell
-    shellAliases = {
-      # ll = "ls -lh";
-      # update = "sudo nixos-rebuild switch --flake ~/.dotfiles/#laptop"; # Example for your specific rebuild command
-      # ... other aliases
-    };
-
-    # Optional: Add extra configuration for your .zshrc
-    # This allows you to add any raw zsh config that doesn't have a specific Home Manager option
-    initContent = ''
-      # Source Oh My Zsh (assuming it's installed via home.packages)
-      source ${pkgs.oh-my-zsh}/share/oh-my-zsh/oh-my-zsh.sh
-
-      # Set Oh My Zsh theme
-      ZSH_THEME="agnoster" # Or "robbyrussell", etc.
-
-      # Enable plugins manually
-      # Note: For plugins, you'll often need to ensure they are available as packages
-      # or manage them via a custom plugin directory if they're not
-      # standard Oh My Zsh plugins
-      plugins=(
-        git
-        colored-man-pages
-        # Add more plugins here, e.g.:
-        # z # requires 'z' plugin from oh-my-zsh source, or a package
-        # fzf # requires 'fzf' plugin from oh-my-zsh source, or a package
-      )
-
-      # *****************************************************************
-      # ZSH HISTORY CONFIGURATION - SETTING ZSH OPTIONS DIRECTLY
-      # *****************************************************************
-      setopt APPEND_HISTORY     # Append to history file
-      setopt SHARE_HISTORY      # Share history between all sessions
-      setopt EXTENDED_HISTORY   # Save history in the format ':<start_time>:<elapsed_seconds>;<command>'
-      setopt HIST_EXPIRE_DUPS_FIRST # New lines should not be saved if they duplicate an earlier line
-      setopt HIST_IGNORE_DUPS   # Don't record a command if it was the same as the previous one
-      setopt HIST_IGNORE_SPACE  # Don't record lines starting with a space
-      setopt HIST_REDUCE_BLANKS # Remove extra blank spaces from history entries
-      setopt HIST_VERIFY         # Don't execute immediately upon recall from history
-      setopt HIST_FCNTL_LOCK     # Enable history locking mechanism for concurrent sessions
-
-      # Set history file size and number of lines to save
-      HISTFILE="$HOME/.zsh_history" # Default is ~/.zsh_history, but explicit is fine
-      HISTSIZE=10000              # Number of lines to keep in memory for history
-      SAVEHIST=10000              # Number of lines to save to the history file
-
-      # *****************************************************************
-
-      # Home Manager environment setup
-      if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-      fi
-
-
-      # Example: auto-jump to frequently visited directories
-      # (if 'z' plugin is enabled)
-      # zoxide init zsh --cmd cd | source
-
-      # Custom prompt settings (if not using an Oh My Zsh theme)
-      # PROMPT="%(?.%F{green}✔.%F{red}✘)%f %B%F{blue}%~%f%b $(git_prompt_info)%B%F{normal}\n\$ %b"
-    '';
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+    # Neovim
+    ".config/nvim" = {
+      source = ../dotfiles/.config/nvim;
+      recursive = true;
+    };
+
+    # ZSH
+    ".zshrc" = ../dotfiles/.zshrc;
+
+    # tmux
+    ".tmux" = ../dotfiles/.tmux;
+
+    # conda init
+    ".conda-init.sh" = ../dotfiles/.conda-init.sh;
+
+    # kitty
+    ".config/kitty" = {
+      source = ../dotfiles/.config/kitty;
+      recursive = true;
+    };
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
