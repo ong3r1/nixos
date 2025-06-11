@@ -1,0 +1,17 @@
+matches:
+  - trigger: ":greetpersonal"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - /home/ong3r1/scripts/espanso/random_greeting_personal.sh
+  - trigger: ":dmclose"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            /home/ong3r1/scripts/espanso/random_dm_closer_cta.sh

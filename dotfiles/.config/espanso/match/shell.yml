@@ -1,0 +1,14 @@
+matches:
+  # Tmux
+  - trigger: ":txa"
+    replace: "tmux attach -t"
+  - trigger: ":txrs"
+    replace: "tmuxinator start "
+  - trigger: ":txrp"
+    replace: "tmuxinator stop "
+  - trigger: "txnin"
+    replace: "tmux new-session -d -s "
+
+  # dpkg
+  - trigger: ":dpkg"
+    replace: "sudo dpkg -i "

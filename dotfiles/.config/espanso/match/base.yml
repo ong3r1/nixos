@@ -1,0 +1,33 @@
+matches:
+- trigger: ":espanso"
+  replace: "Hi there!"
+- trigger: ":today"
+  replace: "{{mydate}}"
+  vars:
+    - name: mydate
+      type: date
+      params:
+        format: "%F"
+- trigger: ":now"
+  replace: "{{mytime}}"
+  vars:
+    - name: mytime
+      type: date
+      params:
+        format: "%H:%M"
+- trigger: ":tmrw"
+  replace: "{{mytime}}"
+  vars:
+    - name: mytime
+      type: date
+      params:
+        format: "%F"
+        offset: 86400
+- trigger: ":ystd"
+  replace: "{{mytime}}"
+  vars:
+    - name: mytime
+      type: date
+      params:
+        format: "%F"
+        offset: -86400

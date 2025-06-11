@@ -1,0 +1,3 @@
+matches:
+  - trigger: ":docup"
+    replace: "docker compose up -d"

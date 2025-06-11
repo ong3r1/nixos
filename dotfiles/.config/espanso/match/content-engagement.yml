@@ -1,0 +1,53 @@
+matches:
+  - trigger: ":hookcurious"
+    label: "Random Curious Hook"
+    description: "Generates a random curious hook"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - /home/ong3r1/scripts/espanso/random_curious_hook.sh
+  - trigger: ":hookthought"
+    label: "Random Thought Provoking Hook"
+    description: "Generates a random thought provoking hook"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - /home/ong3r1/scripts/espanso/random_though_provoking_hook.sh
+  - trigger: ":hookinterrupt"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - /home/ong3r1/scripts/espanso/random_thought_provoking_hook.sh
+  - trigger: ":hookcontra"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - /home/ong3r1/scripts/espanso/random_contrarian_hook.sh
+  - trigger: ":hookpersonal"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - /home/ong3r1/scripts/espanso/random_personal_xp_hook.sh
+  - trigger: ":hookloop"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: script
+        params:
+          args:
+            - /home/ong3r1/scripts/espanso/random_open_loop_hook.sh
