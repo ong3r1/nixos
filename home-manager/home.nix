@@ -66,9 +66,9 @@
       menu = "wofi --show-drun";
       modifier = "Mod4";
       keybindings = {
-        "$(config.wayland.windowManager.sway.config.modifier)+Return" = "exec kitty";
-        "$(config.wayland.windowManager.sway.config.modifier)+d" = "exec wofi --show drun";
-        "$(config.wayland.windowManager.sway.config.modifier)+Shift+e" = "exec swaymsg exit.";
+        "Mod4+Return" = "exec kitty";
+        "Mod4+d" = "exec wofi --show drun";
+        "Mod4+Shift+e" = "exec swaymsg exit";
         # Brightness
         "XF86MonBrightnessUp" = "exec brightnessctl set +10%";
         "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
@@ -78,9 +78,9 @@
         "XF86AudioMute" = "exec pamixer -t";
       };
       assigns = {
-        "1:Web" = [{app_id = "firefox";}];
-        "2:Kitty" = [{app_id = "kitty";}];
-        "3:Notes" = [{app_id = "obsidian";}];
+        "1" = [{app_id = "firefox";}];
+        "2" = [{app_id = "kitty";}];
+        "3" = [{app_id = "obsidian";}];
       };
     };
   };
@@ -89,14 +89,15 @@
     enable = true;
 
     # Optional configs
-    defaultTimeout = 5000;
-    backgroundColor = "#1e1e2e";
-    borderColor = "#89b4fa";
-    borderSize = 2;
-    padding = "10";
-    margin = "10";
-    anchor = "top-right";
-    font = "Fira Code 10";
+    settings = {
+      font = "Fira Code 10";
+      background-color = "#1e1e2e";
+      border-color = "#89b4fa";
+      border-size = 2;
+      padding = "10";
+      margin = "10";
+      anchor = "top-right";
+    };
   };
 
   # 1. Enable and configure Zsh as your default shell
@@ -205,6 +206,12 @@
     # Neovim
     ".config/nvim" = {
       source = ../dotfiles/.config/nvim;
+      recursive = true;
+    };
+
+    # Sway
+    ".config/sway" = {
+      source = ../dotfiles/.config/sway;
       recursive = true;
     };
 
