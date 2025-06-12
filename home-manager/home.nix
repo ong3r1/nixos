@@ -40,9 +40,30 @@
     neovim
     tmux
     htop
-    obsidian
+    (pkgs.writeShellScriptBin "obsidian" ''
+      LIBGL_ALWAYS_SOFTWARE=1 \
+      OBSIDIAN_USE_WAYLAND=1 \
+      ${pkgs.electron}/bin/electron \
+        --disable-gpu \
+        --disable-software-rasterizer \
+        ${pkgs.obsidian}/libexec/obsidian
+    '')
     obs-studio
     kitty
+    nerd-fonts.meslo-lg
+
+    # Sway and related packages
+    sway
+    swaynotificationcenter # Notifications
+    swaylock
+    swayidle
+    wl-clipboard
+    waybar
+    brightnessctl
+    networkmanagerapplet
+    pavucontrol
+    playerctl         # Media control
+    wofi              # Application launcher
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -61,28 +82,10 @@
   # Sway
   wayland.windowManager.sway = {
     enable = true;
-    config = {
-      terminal = "kitty";
-      menu = "wofi --show-drun";
-      modifier = "Mod4";
-      keybindings = {
-        "Mod4+Return" = "exec kitty";
-        "Mod4+d" = "exec wofi --show drun";
-        "Mod4+Shift+e" = "exec swaymsg exit";
-        # Brightness
-        "XF86MonBrightnessUp" = "exec brightnessctl set +10%";
-        "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
-        # Volume
-        "XF86AudioRaiseVolume" = "exec pamixer -i 5";
-        "XF86AudioLowerVolume" = "exec pamixer -d 5";
-        "XF86AudioMute" = "exec pamixer -t";
-      };
-      assigns = {
-        "1" = [{app_id = "firefox";}];
-        "2" = [{app_id = "kitty";}];
-        "3" = [{app_id = "obsidian";}];
-      };
-    };
+    extraConfig = ''
+      exec_always --no-startup-id keepassxc --minimize
+      exec_always --no-startup-id nm-applet
+    '';
   };
 
   services.mako = {
@@ -90,7 +93,7 @@
 
     # Optional configs
     settings = {
-      font = "Fira Code 10";
+      font = "MesloLGS Nerd Font";
       background-color = "#1e1e2e";
       border-color = "#89b4fa";
       border-size = 2;
@@ -219,6 +222,7 @@
     ".config/waybar" = {
       source = ../dotfiles/.config/waybar;
       recursive = true;
+    };
 
     # Bash Profile
     ".bash_profile" = {
@@ -273,7 +277,7 @@
 
   programs.waybar = {
     enable = true;
-  }
+  };
 
   programs.gpg = {
     enable = true;

@@ -106,6 +106,7 @@
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
+  services.libinput.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
@@ -122,31 +123,6 @@
     firefox
   ];
 
-  # Sway
-  programs.sway = {
-    enable = true;
-    extraSessionCommands = ''
-      # Start the applet (make sure it's not running already)
-      if ! pgrep -x nm-applet > /dev/null; then
-        nm-applet &
-      fi
-
-      keepassxc --minimize &
-    '';
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      wl-clipboard
-      mako              # Notifications
-      waybar
-      brightnessctl
-      networkmanagerapplet
-      pavucontrol
-      playerctl         # Media control
-      wofi              # Application launcher
-    ];
-  };
-
   hardware = {
     bluetooth.enable = true;
     graphics = {
@@ -156,9 +132,6 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable blueman to manage bluetooth devices.
-  services.blueman.enable = true;
 
   security.polkit.enable = true;
 

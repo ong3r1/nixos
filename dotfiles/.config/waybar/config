@@ -4,20 +4,27 @@
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["clock"],
   "modules-right": ["pulseaudio", "network", "battery", "tray"],
-
+  "bar": {
+    "status_command": "waybar",
+    "tray_output": "primary"
+  },
   "sway/workspaces": {
     "format": "{name}",
     "on-click": "swaymsg workspace {name}"
   },
   "pulseaudio": {
-    "format": " {volume}%"
+    "format": "  {volume}%"
   },
   "network": {
-    "interface": "wlan0",
-    "format": "{ifname}  ",
-    "on-click": "nm-connection-editor",
+    "interface": "wlo1",
+    "format": "  {essid} ({signalStrength}%)",
+    "tooltip-format": "{ipaddr}/{cidr} via {gateway} on {essid}",
+    "on-click": "nm-connection-editor"
   },
   "battery": {
     "format": "{capacity}% {icon}"
+  },
+  "tray": {
+    "spacing": 10
   }
 }

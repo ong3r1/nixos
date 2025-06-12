@@ -1,7 +1,7 @@
 * {
   border: none;
-  border-radius: 12px;
-  font-family: "JetBrainsMono Nerd Font";
+  border-radius: 5px;
+  font-family: "MesloLGS Nerd Font";
   font-size: 13px;
   min-height: 0;
 }
@@ -9,22 +9,28 @@
 #workspaces button {
   padding: 5px;
   margin: 3px;
-  border-radius: 10px;
-  background-color: #2e3440;
-  color: #d8dee9;
+  border-radius: 5px;
+  background-color: #3c3836; /* dark2 */
+  color: #ebdbb2; /* light1 */
 }
 
 #pulseaudio, #network, #battery, #clock {
-  background-color: #4c566a;
+  background-color: #282828; /* dark1 */
   padding: 5px 10px;
   margin: 3px;
-  color: #eceff4;
+  color: #ebdbb2; /* light1 */
 }
 
 #clock {
-  background-color: #81a1c1;
+  background-color: #83a598; /* blue */
 }
 
 #tray {
-  background-color: #3b4252;
+  background-color: #1d2021; /* dark0_hard */
+  padding: 5px 10px;
+  color: #ebdbb2;
+}
+
+#waybar {
+  background-color: rgba(29, 32, 33, 0.85); /* dark0_hard + transparency */
 }
