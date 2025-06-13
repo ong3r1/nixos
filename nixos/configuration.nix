@@ -108,9 +108,31 @@
   services.xserver.enable = true;
   services.libinput.enable = true;
 
+  # Sway
+  programs.sway = {
+    enable = true;
+    extraPackages = with pkgs; [
+      swaynotificationcenter # Notifications
+      swaylock
+      swayidle
+      wl-clipboard
+      waybar
+      brightnessctl
+      networkmanagerapplet
+      pavucontrol
+      grim
+      playerctl         # Media control
+      wofi              # Application launcher
+    ];
+  };
+
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
   services.desktopManager.plasma6.enable = true;
+  services.displayManager.defaultSession = "sway";
 
   # Configure keymap in X11
   services.xserver.xkb = {

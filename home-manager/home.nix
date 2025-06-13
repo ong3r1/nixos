@@ -52,19 +52,6 @@
     kitty
     nerd-fonts.meslo-lg
 
-    # Sway and related packages
-    sway
-    swaynotificationcenter # Notifications
-    swaylock
-    swayidle
-    wl-clipboard
-    waybar
-    brightnessctl
-    networkmanagerapplet
-    pavucontrol
-    playerctl         # Media control
-    wofi              # Application launcher
-
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
