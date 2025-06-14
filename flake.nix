@@ -65,6 +65,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.ong3r1 = import ./home-manager/home.nix;
+            home-manager.backupFileExtension = "backup";
           }
         ];
       };

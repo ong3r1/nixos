@@ -1,0 +1,23 @@
+# Background image
+image=/home/ong3r1/Pictures/wallpapers/forest.jpg
+
+# Clock settings
+clock
+timestr=%H:%M
+datestr=%A, %d %B
+
+# Font
+font=JetBrainsMono Nerd Font
+
+# Appearance
+indicator
+indicator-radius=100
+indicator-thickness=10
+fade-in=0.3
+grace=2
+ignore-empty-password
+line-color=ffffff
+inside-color=00000088
+ring-color=ffffff88
+key-hl-color=00ff00ff
+bs-hl-color=ff0000ff

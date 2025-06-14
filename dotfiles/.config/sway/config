@@ -34,8 +34,10 @@ set $launcher wofi
 # set $powermenu ~/.config/sway/scripts/power_menu.sh
 
 # Automate window to workspace
+for_window [class="obsidian"] move to workspace 3
 for_window [app_id="firefox"] move to workspace 2
 for_window [app_id="kitty"] move to workspace 1
+for_window [app_id="thunderbird"] move to workspace 4
 
 ### Key bindings
 #
@@ -158,6 +160,19 @@ for_window [app_id="kitty"] move to workspace 1
     # Move focus to the parent container
     bindsym $mod+a focus parent
 
+    # Resizing windows:
+    bindsym $mod+r mode "resize"
+
+    mode "resize" {
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        bindsym Escape mode "default"
+        bindsym Return mode "default"
+    }
+
 #
 # Scratchpad:
 #
@@ -220,13 +235,17 @@ for_window [app_id="kitty"] move to workspace 1
 # App shortcuts
 #
     # Launch the file explorer
-    # bindsym $mod+n exec dolphin
+    bindsym $mod+p exec dolphin
 
     # Launch the browser
-    bindsym $mod+o exec firefox
+    bindsym $mod+i exec firefox
 
-    # Toggle waybar
-    bindsym $mod+n exec "~/.config/sway/scripts/toggle-waybar.sh"
+    # Launch Obsidian
+    bindsym $mod+o exec obsidian
+
+    # Launch thunderbird
+    bindsym $mod+t exec thunderbird
+
     # Launch the clipboard manager
     # bindsym $mod+Ctrl+v exec cliphist list | fuzzel -d -w 90 -l 30 -p "Select an entry to copy it to your clipboard buffer:"| cliphist decode | wl-copy
     # Delete an entry from the clipboard manager
@@ -237,7 +256,7 @@ for_window [app_id="kitty"] move to workspace 1
 # Screenshots
 #
     # Snip a selection and pipe to swappy
-    bindsym print exec grim -g "$(slurp)" - | swappy -f -
+    bindsym Print exec grim -g "$(slurp)" - | swappy -f - -o /tmp/screenshot.png && wl-copy < /tmp/screenshot.png && notify-send "Screenshot copied!"
     # Screenshot a window and pipe to swappy
     bindsym Ctrl+Print exec ~/.config/sway/scripts/screenshot_window.sh
     # Screenshot the current display and pipe to swappy
@@ -246,6 +265,9 @@ for_window [app_id="kitty"] move to workspace 1
     # Exit Sway
     bindsym $mod+Shift+e exit
 
+    # Session Variables
+    exec_always --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
     # Start waybar
     exec waybar
 
@@ -253,14 +275,16 @@ for_window [app_id="kitty"] move to workspace 1
     exec_always swaync
 
     # Lock screen
-    exec swaylock -f
+    exec swaylock -f -C ~/.config/swaylock/config
 
     # Idle
     exec swayidle -w \
-        timeout 300 'swaylock -f' \
+        timeout 300 'swaylock -f -C ~/.config/swaylock/config' \
         timeout 600 'swaymsg "output * dpms off"' \
         resume 'swaymsg "output * dpms on"' \
-        before-sleep 'swaylock -f'
+        before-sleep 'swaylock -f -C ~/.config/swaylock/config'
 
     # NM applet
-    exec_always nm-applet
+    exec_always --no-startup-id nm-applet
+
+    exec systemctl --user start sway-session.target

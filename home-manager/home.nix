@@ -3,8 +3,104 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "ong3r1";
-  home.homeDirectory = "/home/ong3r1";
+  home = {
+    username = "ong3r1";
+    homeDirectory = "/home/ong3r1";
+    stateVersion = "25.05"; # Please read the comment before changing.
+
+    sessionVariables = {
+      EDITOR = "neovim";
+      BAT_THEME = "DarkNeon";
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+    };
+
+    file = {
+      # Neovim
+      ".config/nvim" = {
+        source = ../dotfiles/.config/nvim;
+        recursive = true;
+      };
+
+      # Sway
+      ".config/sway" = {
+        source = ../dotfiles/.config/sway;
+        recursive = true;
+      };
+
+      # Swaylock
+      ".config/swaylock" = {
+        source = ../dotfiles/.config/swaylock;
+        recursive = true;
+      };
+
+      # Waybar
+      ".config/waybar" = {
+        source = ../dotfiles/.config/waybar;
+        recursive = true;
+      };
+
+      # Bash Profile
+      ".bash_profile" = {
+        source = ../dotfiles/.bash_profile;
+        executable = true;
+      };
+
+      # conda init
+      ".conda-init.sh" = {
+        source = ../dotfiles/.conda-init.sh;
+        executable = true;
+      };
+
+      # kitty
+      ".config/kitty" = {
+        source = ../dotfiles/.config/kitty;
+        recursive = true;
+      };
+    };
+
+    packages = with pkgs; [
+      gh
+      genymotion
+      gcc
+      lazygit
+      vscode
+      curl
+      fd
+      oh-my-zsh
+      vlc
+      nodejs
+      pyenv
+      bat
+      font-awesome
+      material-design-icons
+      libsForQt5.qt5ct
+      codespell
+      neovim
+      btop
+      obsidian
+      obs-studio
+      kitty
+      nerd-fonts.meslo-lg
+      nerd-fonts.jetbrains-mono
+      libnotify
+      thunderbird
+      # Sway and Wayland related packages
+      swaynotificationcenter # Notifications
+      swayidle
+      wl-clipboard
+      waybar
+      brightnessctl
+      pamixer
+      playerctl
+      networkmanagerapplet
+      pavucontrol
+      grim
+      slurp
+      swappy
+      playerctl         # Media control
+      wofi              # Application launcher
+    ];
+  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -13,81 +109,15 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-    git
-    gh
-    lazygit
-    lazydocker
-    vscode
-    curl
-    fzf
-    fd
-    zsh
-    oh-my-zsh
-    vlc
-    nodejs
-    pyenv
-    bat
-    libsForQt5.qt5ct
-    codespell
-    neovim
-    tmux
-    htop
-    (pkgs.writeShellScriptBin "obsidian" ''
-      LIBGL_ALWAYS_SOFTWARE=1 \
-      OBSIDIAN_USE_WAYLAND=1 \
-      ${pkgs.electron}/bin/electron \
-        --disable-gpu \
-        --disable-software-rasterizer \
-        ${pkgs.obsidian}/libexec/obsidian
-    '')
-    obs-studio
-    kitty
-    nerd-fonts.meslo-lg
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-  ];
 
   # Sway
   wayland.windowManager.sway = {
     enable = true;
-    extraConfig = ''
-      exec_always --no-startup-id keepassxc --minimize
-      exec_always --no-startup-id nm-applet
-    '';
   };
 
-  services.mako = {
+  programs.swaylock = {
     enable = true;
-
-    # Optional configs
-    settings = {
-      font = "MesloLGS Nerd Font";
-      background-color = "#1e1e2e";
-      border-color = "#89b4fa";
-      border-size = 2;
-      padding = "10";
-      margin = "10";
-      anchor = "top-right";
-    };
+    package = pkgs.swaylock-effects;
   };
 
   # 1. Enable and configure Zsh as your default shell
@@ -190,76 +220,13 @@
     '';
   };
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # Neovim
-    ".config/nvim" = {
-      source = ../dotfiles/.config/nvim;
-      recursive = true;
-    };
-
-    # Sway
-    ".config/sway" = {
-      source = ../dotfiles/.config/sway;
-      recursive = true;
-    };
-
-    # Waybar
-    ".config/waybar" = {
-      source = ../dotfiles/.config/waybar;
-      recursive = true;
-    };
-
-    # Bash Profile
-    ".bash_profile" = {
-      source = ../dotfiles/.bash_profile;
-      executable = true;
-    };
-
-    # conda init
-    ".conda-init.sh" = {
-      source = ../dotfiles/.conda-init.sh;
-      executable = true;
-    };
-
-    # kitty
-    ".config/kitty" = {
-      source = ../dotfiles/.config/kitty;
-      recursive = true;
-    };
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+  programs.firefox = {
+    enable = true;
+    nativeMessagingHosts = [pkgs.keepassxc];
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/ong3r1/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    EDITOR = "neovim";
-    BAT_THEME = "DarkNeon";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
+  programs.keepassxc = {
+    enable = true;
   };
 
   programs.waybar = {
@@ -268,16 +235,6 @@
 
   programs.gpg = {
     enable = true;
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = true;
-    pinentry.package = pkgs.pinentry-qt; # Or your preferred pinentry
-    extraConfig = ''
-      default-cache-ttl 600
-      max-cache-ttl 7200
-    '';
   };
 
   programs.git = {
@@ -295,7 +252,16 @@
     };
   };
 
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    pinentry.package = pkgs.pinentry-qt; # Or your preferred pinentry
+    extraConfig = ''
+      default-cache-ttl 600
+      max-cache-ttl 7200
+    '';
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
 }
