@@ -271,11 +271,14 @@ for_window [app_id="thunderbird"] move to workspace 4
     # Start waybar
     exec waybar
 
+    # Auto-launch KeePassXC at Sway startup
+    exec keepassxc
+
+    # When KeePassXC appears, move it to the scratchpad and float it
+    for_window [title="KeePassXC"] floating enable, move to scratchpad
+
     # Tray
     exec_always swaync
-
-    # Lock screen
-    exec swaylock -f -C ~/.config/swaylock/config
 
     # Idle
     exec swayidle -w \

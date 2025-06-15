@@ -22,16 +22,16 @@
 }
 
 #clock {
-  background-color: #83a598; /* blue */
-  color: #3c3836; /* dark2 */
+  background-color: #1d2021; /* blue */
+  color: #ebdbb2; /* dark2 */
 }
 
 #tray {
-  background-color: #1d2021; /* dark0_hard */
-  padding: 5px 10px;
+  background-color: #282828; /* dark0_hard */
+  padding: 5px 0px;
   color: #ebdbb2;
 }
 
 #waybar {
-  background-color: rgba(29, 32, 33, 0.85); /* dark0_hard + transparency */
+  background-color: rgba(0, 0, 0, 0); /* dark0_hard + transparency */
 }
