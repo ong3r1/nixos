@@ -24,7 +24,7 @@
     # ./firefox.nix
 
     # Import the GPG configuration
-    ./gpg.nix
+    # ./gpg.nix
   ];
 
   home = {
