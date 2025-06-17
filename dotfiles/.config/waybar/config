@@ -13,10 +13,14 @@
     "on-click": "swaymsg workspace {name}"
   },
   "pulseaudio": {
-    "format": "  {volume}%"
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 muted",
+    "format-icons": [ "󰕿", "󰖀", "󰕾" ]
   },
   "battery": {
-    "format": "{capacity}% {icon}"
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-icons": [ "", "", "", "", "" ]
   },
   "tray": {
     "spacing": 10

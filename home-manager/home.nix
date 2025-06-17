@@ -33,7 +33,7 @@
     stateVersion = "25.05"; # Please read the comment before changing.
 
     sessionVariables = {
-      EDITOR = "neovim";
+      EDITOR = "nvim";
       BAT_THEME = "DarkNeon";
       QT_QPA_PLATFORMTHEME = "qt5ct";
     };

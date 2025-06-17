@@ -6,12 +6,48 @@
   min-height: 0;
 }
 
+#workspaces {
+  margin: 0 8px;
+}
+
 #workspaces button {
-  padding: 5px;
+  padding: 2px 6px;
   margin: 3px;
   border-radius: 5px;
-  background-color: #3c3836; /* dark2 */
-  color: #ebdbb2; /* light1 */
+  background: transparent;
+  color: #ebdbb2; /* fg - light0 */
+  font-weight: normal;
+  transition: all 0.2s ease;
+}
+
+/* 🟢 Active Workspace (Focused) */
+#workspaces button.active {
+  background: #458588; /* blue */
+  color: #fbf1c7;       /* lightest bg */
+  font-weight: bold;
+  border: 2px solid #83a598; /* light blue border for glow */
+  border-bottom: 2px solid #fabd2f; /* yellow underline */
+}
+
+/* 🔵 Visible on another monitor (but not focused) */
+#workspaces button.visible {
+  background: #504945; /* bg2 */
+  color: #d5c4a1;       /* light4 */
+  font-style: italic;
+}
+
+/* 🔴 Urgent Window Present */
+#workspaces button.urgent {
+  background: #cc241d; /* red */
+  color: #fbf1c7;       /* lightest bg */
+  font-weight: bold;
+  box-shadow: 0 0 5px #cc241d;
+}
+
+/* ⚪ Inactive workspace (default) */
+#workspaces button:not(.active):not(.urgent):not(.visible) {
+  background: transparent;
+  color: #928374; /* gray */
 }
 
 #pulseaudio, #network, #battery, #clock {
@@ -28,7 +64,8 @@
 
 #tray {
   background-color: #282828; /* dark0_hard */
-  padding: 2px 5px;
+  padding: 5px;
+  margin: 3px 10px;
   color: #ebdbb2;
 }
 
