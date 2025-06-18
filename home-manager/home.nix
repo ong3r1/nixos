@@ -104,6 +104,7 @@
       obsidian
       obs-studio
       kitty
+      alacritty
       nerd-fonts.meslo-lg
       nerd-fonts.jetbrains-mono
       libnotify
