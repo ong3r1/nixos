@@ -69,12 +69,6 @@
         executable = true;
       };
 
-      # conda init
-      ".conda-init.sh" = {
-        source = ../dotfiles/.conda-init.sh;
-        executable = true;
-      };
-
       # kitty
       ".config/kitty" = {
         source = ../dotfiles/.config/kitty;
@@ -145,12 +139,6 @@
       enable = true;
       theme = "robbyrussell"; # You can change this to any other theme you prefer
     };
-    shellAliases = {
-      # Cargo initialisation for rust
-      source_cargo = "source ~/.source-cargo.sh";
-      # Conda alias
-      init_conda = "source ~/.conda-init.sh";
-    };
   };
 
   # FZF integration with Zsh
@@ -179,10 +167,6 @@
   };
 
   programs.waybar = {
-    enable = true;
-  };
-
-  programs.gpg = {
     enable = true;
   };
 
