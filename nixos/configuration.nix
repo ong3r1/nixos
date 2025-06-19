@@ -110,7 +110,7 @@
     XDG_SESSION_TYPE = "wayland";
   };
 
-  programs.xwayland.enable = true;
+  # programs.xwayland.enable = true;
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -121,7 +121,7 @@
   };
 
   services = {
-    # Ensure DBus is enabled (critical)
+    Ensure DBus is enabled (critical)
     dbus = {
       enable = true;
     };

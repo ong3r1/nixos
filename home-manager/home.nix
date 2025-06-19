@@ -40,10 +40,10 @@
 
     file = {
       # Neovim
-      ".config/nvim" = {
-        source = ../dotfiles/.config/nvim;
-        recursive = true;
-      };
+      # ".config/nvim" = {
+      #   source = ../dotfiles/.config/nvim;
+      #   recursive = true;
+      # };
 
       # Sway
       ".config/sway" = {
@@ -61,12 +61,6 @@
       ".config/waybar" = {
         source = ../dotfiles/.config/waybar;
         recursive = true;
-      };
-
-      # Bash Profile
-      ".bash_profile" = {
-        source = ../dotfiles/.bash_profile;
-        executable = true;
       };
 
       # kitty
