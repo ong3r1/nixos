@@ -52,6 +52,12 @@
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+
     settings = {
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
@@ -69,22 +75,47 @@
   };
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.configurationLimit = 5;
+  boot = {
+    plymouth = {
+      enable = true;
+      theme = "red_loader";
+      themePackages = [
+        (import ../dotfiles/plymouth/themes/red_loader.nix { inherit (pkgs) stdenv; } )
+      ];
+    };
+    loader = {
+      grub = {
+        enable = true;
+        devices = ["nodev"];
+        configurationLimit = 5;
+      };
+      efi = {
+        canTouchEfiVariables = true;
+      };
+    };
+    initrd = {
+      kernelModules = ["drm"];
+      systemd = {
+        enable = true;
+      };
+    };
+    kernelParams = ["quiet" "splash"]; # suppresses log spam during boot
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  networking = {
+    hostName = "nixos"; # Define your hostname.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    # Configure network proxy if necessary
+    # networking.proxy.default = "http://user:password@proxy:port/";
+    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
+    # Enable networking
+    networkmanager = {
+      enable = true;
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Africa/Nairobi";
@@ -104,10 +135,26 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-
   # Environment variables
-  environment.variables = {
-    XDG_SESSION_TYPE = "wayland";
+  environment = {
+    variables = {
+      XDG_SESSION_TYPE = "wayland";
+    };
+    systemPackages = with pkgs; [sops gnupg pinentry-curses];
+    etc."gnupg/gpg-agent.conf".text = lib.mkForce ''
+      pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
+      default-cache-ttl 600
+      max-cache-ttl 7200
+      allow-loopback-pinentry
+    '';
+  };
+
+  # Sops
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yml;
+    age = {
+      keyFile = null;
+    };
   };
 
   # programs.xwayland.enable = true;
@@ -116,27 +163,47 @@
   # You can disable this if you're only using the Wayland session.
 
   # Sway
-  programs.sway = {
-    enable = true;
+  programs = {
+    sway = {
+      enable = true;
+    };
+    zsh = {
+      enable = true;
+    };
+    gnupg = {
+      agent = {
+        enable = true;
+        enableExtraSocket = true;
+        enableSSHSupport = true;
+        pinentryPackage = pkgs.pinentry-curses; # Choose from: "curses", "gtk2", "qt", "gnome3"
+      };
+    };
   };
 
   services = {
-    Ensure DBus is enabled (critical)
+    # Ensure DBus is enabled (critical)
     dbus = {
       enable = true;
     };
     displayManager = {
-      gdm = {
-        enable = true;
-        wayland.enable = true; # Enable Wayland support
-      };
-      defaultSession = "sway"; # Set Sway as the default session
+      defaultSession = "sway";
     };
     xserver = {
       enable = true;
       xkb = {
         layout = "us";
         variant = "";
+      };
+      desktopManager = {
+        gnome = {
+          enable = true;
+        };
+      };
+      displayManager = {
+        gdm = {
+          enable = true;
+          wayland = true; # Enable Wayland support
+        };
       };
     };
     printing = {
@@ -186,7 +253,6 @@
 
   # Enable sound with pipewire.
   security.rtkit.enable = true;
-  programs.zsh.enable = true;
 
   users.users = {
     ong3r1 = {
@@ -201,7 +267,7 @@
       ];
       shell = pkgs.zsh;
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["wheel" "networkmanager" "video" "input" "render"];
+      extraGroups = ["wheel" "networkmanager" "video" "input" "render" "keys"];
     };
   };
 

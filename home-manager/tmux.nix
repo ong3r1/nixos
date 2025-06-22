@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.tmux = {
     enable = true;
 
@@ -37,7 +39,7 @@
 
       # Window status
       setw -g window-status-format " #I:#W "
-      setw -g window-status-current-format "#[bg=colour239,fg=colour223]#[bg=colour239,fg=colour223,bold] #I:#W #[bg=colour235,fg=colour239,nobold]"
+      setw -g window-status-current-format "#[bg=colour239,fg=colour223]█#[bg=colour239,fg=colour223,bold] #I:#W #[bg=colour235,fg=colour239,nobold]█"
       setw -g window-status-style bg=colour235,fg=colour244
       setw -g window-status-current-style bg=colour239,fg=colour223,bold
 
@@ -52,10 +54,10 @@
       set -g message-command-style bg=colour239,fg=colour223
 
       # Status Left & Right
-      set -g status-left "#[bg=colour239,fg=colour223,bold] #S #[bg=colour235,fg=colour239,nobold]"
+      set -g status-left "#[bg=colour239,fg=colour223,bold] #S #[bg=colour235,fg=colour239,nobold]█"
       set -g status-left-length 40
 
-      set -g status-right "#[bg=colour235,fg=colour239]#[bg=colour239,fg=colour223] %Y-%m-%d  %H:%M #[default]"
+      set -g status-right "#[bg=colour235,fg=colour239]█#[bg=colour239,fg=colour223] %Y-%m-%d ┃ %H:%M #[default]"
       set -g status-right-length 100
 
       # Mode-style (copy-mode selection)
@@ -66,5 +68,4 @@
       set -g bell-action any
     '';
   };
-
 }

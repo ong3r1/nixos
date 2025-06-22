@@ -9,6 +9,12 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
+    # Nixvim
+    nixvim.url = "github:nix-community/nixvim";
+
+    # Sops
+    sops-nix.url = "github:Mic92/sops-nix";
+
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -17,6 +23,8 @@
   outputs = {
     self,
     nixpkgs,
+    nixvim,
+    sops-nix,
     home-manager,
     ...
   } @ inputs: let
@@ -59,13 +67,21 @@
           # > Our main nixos configuration file <
           ./nixos/configuration.nix
 
+          # Sops
+          sops-nix.nixosModules.sops
+
           # 👇 This line integrates Home Manager as a NixOS module
           home-manager.nixosModules.home-manager
 
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.ong3r1 = import ./home-manager/home.nix;
+            home-manager.users.ong3r1 = {
+              imports = [
+                inputs.nixvim.homeManagerModules.nixvim
+                ./home-manager/home.nix
+              ];
+            };
             home-manager.backupFileExtension = "backup";
           }
         ];
@@ -79,6 +95,8 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
+          # Nixvim
+          inputs.nixvim.homeManagerModules.nixvim
           # > Our main home-manager configuration file <
           ./home-manager/home.nix
         ];
@@ -86,4 +104,3 @@
     };
   };
 }
-

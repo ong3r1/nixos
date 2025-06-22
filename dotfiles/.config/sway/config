@@ -22,7 +22,7 @@ set $up k
 set $right l
 
 # Set default terminal emulator
-set $term kitty
+set $term alacritty
 
 # Application launcher
 set $launcher wofi

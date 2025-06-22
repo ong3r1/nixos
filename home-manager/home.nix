@@ -1,6 +1,12 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: let
+  myKeepassXC = pkgs.keepassxc;
+  py = pkgs.python3Packages;
+  js = pkgs.nodePackages;
+in {
   imports = [
     # Import the Sway configuration
     ./sway.nix
@@ -8,11 +14,8 @@
     # Import the Tmux configuration
     ./tmux.nix
 
-    # Import the Neovim configuration
-    # ./neovim.nix
-
-    # Import the Kitty configuration
-    # ./kitty.nix
+    # nixvim
+    ./neovim.nix
 
     # Import the Zsh configuration
     # ./zsh.nix
@@ -39,12 +42,6 @@
     };
 
     file = {
-      # Neovim
-      # ".config/nvim" = {
-      #   source = ../dotfiles/.config/nvim;
-      #   recursive = true;
-      # };
-
       # Sway
       ".config/sway" = {
         source = ../dotfiles/.config/sway;
@@ -64,8 +61,8 @@
       };
 
       # kitty
-      ".config/kitty" = {
-        source = ../dotfiles/.config/kitty;
+      ".config/alacritty" = {
+        source = ../dotfiles/.config/alacritty;
         recursive = true;
       };
     };
@@ -74,24 +71,44 @@
       gh
       genymotion
       gcc
+      gnupg
       lazygit
       vscode
       curl
+      nixd
+      alejandra
+      cargo
+      rustc
       fd
+      ripgrep
       oh-my-zsh
       vlc
       nodejs
-      pyenv
+      py.black
+      py.isort
+      py.flake8
+      rustfmt
+      clippy
+      js.prettier
+      js.eslint
+      go
+      go-tools
+      golangci-lint
+      pyright
+      rust-analyzer
+      typescript-language-server
+      gopls
+      sqls
+      pgformatter
+      sqlcheck
       bat
       font-awesome
       material-design-icons
       libsForQt5.qt5ct
       codespell
-      neovim
       btop
       obsidian
       obs-studio
-      kitty
       alacritty
       nerd-fonts.meslo-lg
       nerd-fonts.jetbrains-mono
@@ -112,8 +129,8 @@
       grim
       slurp
       swappy
-      playerctl         # Media control
-      wofi              # Application launcher
+      playerctl # Media control
+      wofi # Application launcher
     ];
   };
 
@@ -126,69 +143,71 @@
   # release notes.
 
   # 1. Enable and configure Zsh as your default shell
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true; # Enable Zsh completion
-    oh-my-zsh = {
+  programs = {
+    zsh = {
       enable = true;
-      theme = "robbyrussell"; # You can change this to any other theme you prefer
+      enableCompletion = true; # Enable Zsh completion
+      oh-my-zsh = {
+        enable = true;
+        theme = "robbyrussell"; # You can change this to any other theme you prefer
+      };
+    };
+
+    # FZF integration with Zsh
+    fzf = {
+      enable = true;
+      enableZshIntegration = true; # This enables FZF integration with Zsh
+      defaultCommand = "fd --type f"; # optional: better file search
+      defaultOptions = [
+        "--preview 'bat --style=numbers --color=always --theme=DarkNeon {} | head -500'"
+        "--preview-window=right:60%" # adjust as needed
+      ];
+      # Optional: You can customize the FZF key bindings and completion options
+      # settings = {
+      #   keyBindings = "default";
+      #   completion = "default";
+      # };
+    };
+
+    firefox = {
+      enable = true;
+      nativeMessagingHosts = [myKeepassXC];
+    };
+
+    keepassxc = {
+      enable = true;
+    };
+
+    waybar = {
+      enable = true;
+    };
+
+    git = {
+      enable = true;
+      userName = "ong3r1";
+      userEmail = "binmawe@gmail.com";
+      signing = {
+        key = "1F32DDAF6C4D9048"; # Same GPG key ID
+        signByDefault = true;
+      };
+      # Optional: Make Git use gpg-agent for signing
+      extraConfig = {
+        commit.gpgsign = true;
+        gpg.program = "gpg"; # Ensure it uses the system's gpg
+      };
+    };
+
+    home-manager = {
+      enable = true;
     };
   };
 
-  # FZF integration with Zsh
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true; # This enables FZF integration with Zsh
-    defaultCommand = "fd --type f"; # optional: better file search
-    defaultOptions = [
-      "--preview 'bat --style=numbers --color=always --theme=DarkNeon {} | head -500'"
-      "--preview-window=right:60%" # adjust as needed
-    ];
-    # Optional: You can customize the FZF key bindings and completion options
-    # settings = {
-    #   keyBindings = "default";
-    #   completion = "default";
-    # };
-  };
-
-  programs.firefox = {
-    enable = true;
-    nativeMessagingHosts = [pkgs.keepassxc];
-  };
-
-  programs.keepassxc = {
-    enable = true;
-  };
-
-  programs.waybar = {
-    enable = true;
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "ong3r1";
-    userEmail = "binmawe@gmail.com";
-    signing = {
-      key = "1F32DDAF6C4D9048"; # Same GPG key ID
-      signByDefault = true;
-    };
-    # Optional: Make Git use gpg-agent for signing
-    extraConfig = {
-      commit.gpgsign = true;
-      gpg.program = "gpg"; # Ensure it uses the system's gpg
+  xdg = {
+    configFile = {
+      "nvim/lua/config/lint.lua".source = ../dotfiles/.config/nvim/lua/config/lint.lua;
+      "nvim/lua/config/appearance.lua".source = ../dotfiles/.config/nvim/lua/config/appearance.lua;
+      "nvim/lua/config/fmt.lua".source = ../dotfiles/.config/nvim/lua/config/fmt.lua;
+      "nvim/lua/config/bread-crumbs.lua".source = ../dotfiles/.config/nvim/lua/config/bread-crumbs.lua;
     };
   };
-
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = true;
-    pinentry.package = pkgs.pinentry-qt; # Or your preferred pinentry
-    extraConfig = ''
-      default-cache-ttl 600
-      max-cache-ttl 7200
-    '';
-  };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
