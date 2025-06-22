@@ -6,6 +6,7 @@
   myKeepassXC = pkgs.keepassxc;
   py = pkgs.python3Packages;
   js = pkgs.nodePackages;
+  # uid = toString config.home.userInfo.uid;
 in {
   imports = [
     # Import the Sway configuration
@@ -34,11 +35,14 @@ in {
     username = "ong3r1";
     homeDirectory = "/home/ong3r1";
     stateVersion = "25.05"; # Please read the comment before changing.
-
+    activation.debug = ''
+      echo "DEBUG: HOME USERNAME = ${config.home.username}"
+    '';
     sessionVariables = {
       EDITOR = "nvim";
       BAT_THEME = "DarkNeon";
       QT_QPA_PLATFORMTHEME = "qt5ct";
+      # SSH_AUTH_SOCK = "/run/user/${uid}/gnupg/S.gpg-agent.ssh";
     };
 
     file = {

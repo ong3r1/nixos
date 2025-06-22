@@ -80,7 +80,7 @@
       enable = true;
       theme = "red_loader";
       themePackages = [
-        (import ../dotfiles/plymouth/themes/red_loader.nix { inherit (pkgs) stdenv; } )
+        (import ../dotfiles/plymouth/themes/red_loader.nix {inherit (pkgs) stdenv;})
       ];
     };
     loader = {
