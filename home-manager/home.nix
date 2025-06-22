@@ -187,7 +187,7 @@ in {
       userName = "ong3r1";
       userEmail = "binmawe@gmail.com";
       signing = {
-        key = "1F32DDAF6C4D9048"; # Same GPG key ID
+        key = "8AD822AA6975D2B7"; # Same GPG key ID
         signByDefault = true;
       };
       # Optional: Make Git use gpg-agent for signing
