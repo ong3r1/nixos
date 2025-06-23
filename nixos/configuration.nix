@@ -78,10 +78,10 @@
   boot = {
     plymouth = {
       enable = true;
-      theme = "red_loader";
-      themePackages = [
-        (import ../dotfiles/plymouth/themes/red_loader.nix {inherit (pkgs) stdenv;})
-      ];
+      theme = "bgrt";
+      # themePackages = [
+      #   (import ../dotfiles/plymouth/themes/red_loader.nix {inherit (pkgs) stdenv;})
+      # ];
     };
     loader = {
       grub = {
@@ -96,7 +96,7 @@
       };
     };
     initrd = {
-      kernelModules = ["drm"];
+      kernelModules = ["i915"];
       systemd = {
         enable = true;
       };
