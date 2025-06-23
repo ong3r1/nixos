@@ -85,8 +85,10 @@
     };
     loader = {
       grub = {
+        enable = false;
+      };
+      systemd-boot = {
         enable = true;
-        devices = ["nodev"];
         configurationLimit = 5;
       };
       efi = {
