@@ -1,0 +1,4 @@
+backend: clipboard
+
+insert_mode:
+  type: clipboard

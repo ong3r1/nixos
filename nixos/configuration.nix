@@ -140,9 +140,9 @@
     variables = {
       XDG_SESSION_TYPE = "wayland";
     };
-    systemPackages = with pkgs; [sops gnupg pinentry-curses];
+    systemPackages = with pkgs; [sops gnupg pinentry-gtk2];
     etc."gnupg/gpg-agent.conf".text = lib.mkForce ''
-      pinentry-program ${pkgs.pinentry-curses}/bin/pinentry
+      pinentry-program ${pkgs.pinentry-gtk2}/bin/pinentry
       default-cache-ttl 600
       max-cache-ttl 7200
       allow-loopback-pinentry
@@ -175,7 +175,7 @@
         enable = true;
         enableExtraSocket = true;
         enableSSHSupport = true;
-        pinentryPackage = pkgs.pinentry-curses; # Choose from: "curses", "gtk2", "qt", "gnome3"
+        pinentryPackage = pkgs.pinentry-gtk2; # Choose from: "curses", "gtk2", "qt", "gnome3"
       };
     };
   };

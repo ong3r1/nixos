@@ -52,6 +52,11 @@ in {
         recursive = true;
       };
 
+      ".config/espanso" = {
+        source = ../dotfiles/.config/espanso;
+        recursive = true;
+      };
+
       # Swaylock
       ".config/swaylock" = {
         source = ../dotfiles/.config/swaylock;
@@ -72,68 +77,69 @@ in {
     };
 
     packages = with pkgs; [
-      gh
-      genymotion
-      gcc
-      gnupg
-      lazygit
-      vscode
-      curl
-      nixd
+      alacritty
       alejandra
+      bat
+      btop
       cargo
-      rustc
-      fd
-      ripgrep
-      oh-my-zsh
-      vlc
-      nodejs
-      py.black
-      py.isort
-      py.flake8
-      rustfmt
       clippy
-      js.prettier
-      js.eslint
+      codespell
+      curl
+      espanso
+      fd
+      font-awesome
+      gcc
+      genymotion
+      gh
+      gnupg
       go
       go-tools
       golangci-lint
-      pyright
-      rust-analyzer
-      typescript-language-server
       gopls
-      sqls
-      pgformatter
-      sqlcheck
-      bat
-      font-awesome
-      material-design-icons
-      libsForQt5.qt5ct
-      codespell
-      btop
-      obsidian
-      obs-studio
-      alacritty
-      nerd-fonts.meslo-lg
-      nerd-fonts.jetbrains-mono
+      js.eslint
+      js.prettier
+      lazygit
       libnotify
+      libsForQt5.qt5ct
+      material-design-icons
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.meslo-lg
+      nixd
+      nodejs
+      obs-studio
+      obsidian
+      oh-my-zsh
+      pgformatter
+      py.black
+      py.flake8
+      py.isort
+      pyright
+      ripgrep
+      rust-analyzer
+      rustc
+      rustfmt
+      sqlcheck
+      sqls
       thunderbird
       tmuxinator
+      tree
+      typescript-language-server
+      vlc
+      vscode
       # Sway and Wayland related packages
-      swaynotificationcenter # Notifications
-      swayidle
-      wl-clipboard
-      waybar
-      feh
       brightnessctl
-      pamixer
-      playerctl
-      networkmanagerapplet
-      pavucontrol
+      feh
       grim
+      networkmanagerapplet
+      pamixer
+      pavucontrol
+      playerctl # Media control
       slurp
       swappy
-      playerctl # Media control
+      swayidle
+      swaynotificationcenter # Notifications
+      waybar
+      wl-clipboard
       wofi # Application launcher
     ];
   };
