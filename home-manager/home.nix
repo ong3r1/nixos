@@ -52,11 +52,6 @@ in {
         recursive = true;
       };
 
-      ".config/espanso" = {
-        source = ../dotfiles/.config/espanso;
-        recursive = true;
-      };
-
       # Swaylock
       ".config/swaylock" = {
         source = ../dotfiles/.config/swaylock;
@@ -85,7 +80,6 @@ in {
       clippy
       codespell
       curl
-      espanso
       fd
       font-awesome
       gcc

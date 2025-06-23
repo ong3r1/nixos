@@ -1,5 +1,9 @@
 # Window Style
 default_border none
+gaps inner 10
+gaps outer 10
+
+# Wallpaper
 output * bg ~/Pictures/wallpapers/forest.jpg fill
 
 # Touchpad support
