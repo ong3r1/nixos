@@ -78,10 +78,10 @@
   boot = {
     plymouth = {
       enable = true;
-      theme = "bgrt";
-      # themePackages = [
-      #   (import ../dotfiles/plymouth/themes/red_loader.nix {inherit (pkgs) stdenv;})
-      # ];
+      theme = "red_loader";
+      themePackages = [
+        (import ../dotfiles/plymouth/themes/red_loader.nix {inherit (pkgs) stdenv;})
+      ];
     };
     loader = {
       grub = {
@@ -103,6 +103,24 @@
     };
     kernelParams = ["quiet" "splash"]; # suppresses log spam during boot
     kernelPackages = pkgs.linuxPackages_latest;
+  };
+
+  systemd = {
+    services = {
+      "getty@tty1".enable = false;
+    };
+    user = {
+      services = {
+        udiskie = {
+          description = "udiskie automounter";
+          wantedBy = ["default.target"];
+          serviceConfig = {
+            ExecStart = "${pkgs.udiskie}/bin/udiskie --smart-tray --no-automount";
+            Restart = "always";
+          };
+        };
+      };
+    };
   };
 
   networking = {
@@ -142,13 +160,29 @@
     variables = {
       XDG_SESSION_TYPE = "wayland";
     };
-    systemPackages = with pkgs; [sops gnupg pinentry-gtk2];
-    etc."gnupg/gpg-agent.conf".text = lib.mkForce ''
-      pinentry-program ${pkgs.pinentry-gtk2}/bin/pinentry
-      default-cache-ttl 600
-      max-cache-ttl 7200
-      allow-loopback-pinentry
-    '';
+    systemPackages = with pkgs; [
+      gnupg
+      lf
+      pinentry-gtk2
+      sops
+      udiskie
+    ];
+    etc = {
+      "gnupg/gpg-agent.conf".text = lib.mkForce ''
+        pinentry-program ${pkgs.pinentry-gtk2}/bin/pinentry
+        default-cache-ttl 600
+        max-cache-ttl 7200
+        allow-loopback-pinentry
+      '';
+      "xdg/wayland-sessions/sway.desktop".text = ''
+        [Desktop Entry]
+        Name=Sway
+        Comment=Wayland i3-compatible compositor
+        Exec=sway
+        Type=Application
+        DesktopNames=Sway
+      '';
+    };
   };
 
   # Sops
@@ -158,8 +192,6 @@
       keyFile = null;
     };
   };
-
-  # programs.xwayland.enable = true;
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -171,6 +203,12 @@
     };
     zsh = {
       enable = true;
+      promptInit = ""; # Prevent clearing the screen
+      loginShellInit = ''
+        if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+          exec sway
+        fi
+      '';
     };
     gnupg = {
       agent = {
@@ -188,25 +226,35 @@
       enable = true;
     };
     displayManager = {
+      ly = {
+        enable = true;
+        settings = {
+          logging = true;
+          tty = "1";
+        };
+      };
       defaultSession = "sway";
     };
     xserver = {
-      enable = true;
+      enable = false;
       xkb = {
         layout = "us";
         variant = "";
       };
-      desktopManager = {
-        gnome = {
-          enable = true;
-        };
-      };
-      displayManager = {
-        gdm = {
-          enable = true;
-          wayland = true; # Enable Wayland support
-        };
-      };
+      # desktopManager = {
+      #   gnome = {
+      #     enable = true;
+      #   };
+      # };
+      # displayManager = {
+      #   lightdm = {
+      #     enable = false;
+      #   };
+      #   gdm = {
+      #     enable = true;
+      #     # wayland = true; # Enable Wayland support
+      #   };
+      # };
     };
     printing = {
       enable = true;
@@ -251,10 +299,18 @@
   };
 
   # Enable CUPS to print documents.
-  security.polkit.enable = true;
-
-  # Enable sound with pipewire.
-  security.rtkit.enable = true;
+  security = {
+    polkit.enable = true;
+    # Enable sound with pipewire.
+    rtkit.enable = true;
+    pam = {
+      services = {
+        ly = {
+          enable = true;
+        };
+      };
+    };
+  };
 
   users.users = {
     ong3r1 = {
@@ -269,7 +325,16 @@
       ];
       shell = pkgs.zsh;
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
-      extraGroups = ["wheel" "networkmanager" "video" "input" "render" "keys"];
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "video"
+        "storage"
+        "plugdev"
+        "input"
+        "render"
+        "keys"
+      ];
     };
   };
 

@@ -1,6 +1,5 @@
 * {
   border: none;
-  border-radius: 5px;
   font-family: "MesloLGS Nerd Font";
   font-size: 13px;
   min-height: 0;
@@ -13,7 +12,6 @@
 #workspaces button {
   padding: 2px 6px;
   margin: 3px;
-  border-radius: 5px;
   background: transparent;
   color: #ebdbb2; /* fg - light0 */
   font-weight: normal;
