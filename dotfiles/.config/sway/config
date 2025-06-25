@@ -239,6 +239,7 @@ for_window [app_id="thunderbird"] move to workspace 4
 # App shortcuts
 #
     # Launch the file explorer
+    bindsym $mod+p exec alacritty -e lf
 
     # Launch the browser
     bindsym $mod+i exec firefox
@@ -272,6 +273,7 @@ for_window [app_id="thunderbird"] move to workspace 4
     exec_always --no-startup-id systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 
     # Toggle Waybar with Mod+Shift+B
+    bindsym $mod+u exec ~/.config/waybar/toggle-waybar.sh
 
     # Auto-launch KeePassXC at Sway startup
     exec keepassxc
