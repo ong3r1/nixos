@@ -6,7 +6,7 @@
 }: {
   home = {
     packages = with pkgs; [
-      (wofi.override {withIcons = true;})
+      wofi
       qogir-icon-theme
     ];
 
