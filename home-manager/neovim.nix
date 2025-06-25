@@ -22,6 +22,7 @@
     };
     # Plugins
     plugins = {
+      gitsigns.enable = true;
       "nvim-autopairs" = {
         enable = true;
         settings = {

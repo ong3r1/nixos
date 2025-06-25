@@ -42,10 +42,26 @@ in {
       EDITOR = "nvim";
       BAT_THEME = "DarkNeon";
       QT_QPA_PLATFORMTHEME = "qt5ct";
-      # SSH_AUTH_SOCK = "/run/user/${uid}/gnupg/S.gpg-agent.ssh";
+      XCURSOR_THEME = "Qogir-Dark";
+      XCURSOR_SIZE = "24";
+      GTK_THEME = "Adwaita:dark";
+      ICON_THEME = "Qogir-Dark";
+      XDG_CURRENT_DESKTOP = "sway";
     };
 
     file = {
+      # Wofi
+      ".config/wofi" = {
+        source = ../dotfiles/.config/wofi;
+        recursive = true;
+      };
+
+      # Cursor
+      ".icons/default/index.theme".text = ''
+        [Icon Theme]
+        Inherits=${config.home.pointerCursor.name}
+      '';
+
       # Sway
       ".config/sway" = {
         source = ../dotfiles/.config/sway;
@@ -69,6 +85,14 @@ in {
         source = ../dotfiles/.config/alacritty;
         recursive = true;
       };
+    };
+
+    pointerCursor = {
+      package = pkgs.qogir-icon-theme;
+      name = "Qogir-Dark";
+      size = 24;
+      gtk.enable = true;
+      x11.enable = true; # even if you're not using X11, this helps with GTK compatibility
     };
 
     packages = with pkgs; [
