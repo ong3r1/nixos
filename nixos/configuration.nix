@@ -74,15 +74,34 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
+  console = {
+    earlySetup = true;
+    font = "Lat2-Terminus16"; # Or something like ter-u32b if you want HUGE font
+    keyMap = "us";
+    colors = [
+      "282a2e" # black
+      "a54242" # red
+      "8c9440" # green
+      "de935f" # yellow
+      "5f819d" # blue
+      "85678f" # magenta
+      "5e8d87" # cyan
+      "707880" # white
+
+      "373b41" # bright black
+      "cc6666" # bright red
+      "b5bd68" # bright green
+      "f0c674" # bright yellow
+      "81a2be" # bright blue
+      "b294bb" # bright magenta
+      "8abeb7" # bright cyan
+      "c5c8c6" # bright white
+    ];
+  };
+
   # Bootloader.
   boot = {
-    plymouth = {
-      enable = true;
-      theme = "red_loader";
-      themePackages = [
-        (import ../dotfiles/plymouth/themes/red_loader.nix {inherit (pkgs) stdenv;})
-      ];
-    };
+    plymouth.enable = false;
     loader = {
       grub = {
         enable = false;
@@ -101,7 +120,6 @@
         enable = true;
       };
     };
-    kernelParams = ["quiet" "splash"]; # suppresses log spam during boot
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
@@ -161,11 +179,16 @@
       XDG_SESSION_TYPE = "wayland";
     };
     systemPackages = with pkgs; [
+      dbus
       gnupg
       lf
       pinentry-gtk2
       sops
       udiskie
+      sway
+      swaylock
+      swayidle
+      waybar
     ];
     etc = {
       "gnupg/gpg-agent.conf".text = lib.mkForce ''
@@ -174,13 +197,11 @@
         max-cache-ttl 7200
         allow-loopback-pinentry
       '';
-      "xdg/wayland-sessions/sway.desktop".text = ''
-        [Desktop Entry]
-        Name=Sway
-        Comment=Wayland i3-compatible compositor
-        Exec=sway
-        Type=Application
-        DesktopNames=Sway
+      "loader/loader.conf".text = ''
+        default nixos
+        timeout 3
+        console-mode max
+        editor   no
       '';
     };
   };
@@ -198,18 +219,8 @@
 
   # Sway
   programs = {
-    sway = {
-      enable = true;
-    };
-    zsh = {
-      enable = true;
-      promptInit = ""; # Prevent clearing the screen
-      loginShellInit = ''
-        if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-          exec sway
-        fi
-      '';
-    };
+    sway.enable = true;
+    zsh.enable = true;
     gnupg = {
       agent = {
         enable = true;
@@ -222,18 +233,16 @@
 
   services = {
     # Ensure DBus is enabled (critical)
-    dbus = {
+    dbus.enable = true;
+
+    greetd = {
       enable = true;
-    };
-    displayManager = {
-      ly = {
-        enable = true;
-        settings = {
-          logging = true;
-          tty = "1";
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd sway";
+          user = "greeter";
         };
       };
-      defaultSession = "sway";
     };
     xserver = {
       enable = false;
@@ -303,13 +312,6 @@
     polkit.enable = true;
     # Enable sound with pipewire.
     rtkit.enable = true;
-    pam = {
-      services = {
-        ly = {
-          enable = true;
-        };
-      };
-    };
   };
 
   users.users = {
