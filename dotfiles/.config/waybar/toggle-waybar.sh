@@ -1,11 +1,8 @@
 #!/bin/bash
 
-# Try to find Waybar's PID
-PID=$(pgrep -x waybar)
-
-if [ -n "$PID" ]; then
+if pgrep -f "waybar" > /dev/null; then
     # If it's running, kill it
-    kill "$PID"
+    pkill -f waybar
 else
     # If it's not running, start it
     waybar &
