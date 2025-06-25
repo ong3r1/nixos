@@ -130,9 +130,7 @@ in {
       playerctl # Media control
       slurp
       swappy
-      swayidle
       swaynotificationcenter # Notifications
-      waybar
       wl-clipboard
       wofi # Application launcher
     ];
