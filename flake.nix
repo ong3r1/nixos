@@ -67,13 +67,7 @@
         modules = [
           # > Our main nixos configuration file <
           ./nixos/configuration.nix
-          {
-            nixpkgs.overlays = [
-              (final: prev: {
-                ly = nixpkgs-unstable.legacyPackages.${prev.system}.ly;
-              })
-            ];
-          }
+
           # Sops
           sops-nix.nixosModules.sops
 
