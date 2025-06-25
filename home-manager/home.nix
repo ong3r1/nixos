@@ -22,6 +22,9 @@ in {
     # wofi
     ./wofi.nix
 
+    # File manager
+    ./file-manager.nix
+
     # Import the Zsh configuration
     # ./zsh.nix
 
