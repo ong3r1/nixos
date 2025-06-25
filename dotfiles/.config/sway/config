@@ -239,7 +239,6 @@ for_window [app_id="thunderbird"] move to workspace 4
 # App shortcuts
 #
     # Launch the file explorer
-    bindsym $mod+p exec dolphin
 
     # Launch the browser
     bindsym $mod+i exec firefox
