@@ -12,10 +12,17 @@
 #workspaces button {
   padding: 2px 6px;
   margin: 3px;
-  background: transparent;
+  background: #282828;
   color: #ebdbb2; /* fg - light0 */
   font-weight: normal;
   transition: all 0.2s ease;
+  border-radius: 0;
+}
+
+#workspaces button.active,
+#workspaces button.visible,
+#workspaces button.urgent {
+  border-radius: 0;
 }
 
 /* 🟢 Active Workspace (Focused) */
@@ -31,7 +38,7 @@
 #workspaces button.visible {
   background: #504945; /* bg2 */
   color: #d5c4a1;       /* light4 */
-  font-style: italic;
+  font-weight: bold;
 }
 
 /* 🔴 Urgent Window Present */
@@ -44,7 +51,7 @@
 
 /* ⚪ Inactive workspace (default) */
 #workspaces button:not(.active):not(.urgent):not(.visible) {
-  background: transparent;
+  background: #1d2021;
   color: #928374; /* gray */
 }
 
@@ -56,7 +63,7 @@
 }
 
 #clock {
-  background-color: #1d2021; /* blue */
+  background-color: #1d2021; /* black */
   color: #ebdbb2; /* dark2 */
 }
 

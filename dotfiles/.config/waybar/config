@@ -3,14 +3,19 @@
   "position": "top",
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["clock"],
-  "modules-right": ["pulseaudio", "battery", "tray"],
+  "modules-right": ["network", "pulseaudio", "battery"],
   "bar": {
     "status_command": "waybar",
-    "tray_output": "primary"
   },
   "sway/workspaces": {
     "format": "{name}",
-    "on-click": "swaymsg workspace {name}"
+  },
+  "network": {
+    "interface": "wlp61s0",
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰈀  {ifname}",
+    "format-disconnected": "󰖪  Disconnected",
+    "on-click": "alacritty -e nmtui"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -21,8 +26,5 @@
     "format": "{icon} {capacity}%",
     "format-charging": " {capacity}%",
     "format-icons": [ "", "", "", "", "" ]
-  },
-  "tray": {
-    "spacing": 10
   }
 }
