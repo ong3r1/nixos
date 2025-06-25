@@ -40,7 +40,7 @@ set $launcher wofi
 # Automate window to workspace
 for_window [class="obsidian"] move to workspace 3
 for_window [app_id="firefox"] move to workspace 2
-for_window [app_id="alacritty"] move to workspace 1
+for_window [app_id="Alacritty"] move to workspace 1
 for_window [app_id="thunderbird"] move to workspace 4
 
 ### Key bindings
