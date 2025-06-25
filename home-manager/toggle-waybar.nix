@@ -1,10 +1,8 @@
-let
-  pkgs = import <nixpkgs> {};
-in
-  pkgs.writeShellScript "toggle-waybar" ''
-    if pgrep -f "waybar" > /dev/null; then
-      pkill -f "waybar"
-    else
-      waybar &
-    fi
-  ''
+{pkgs, ...}:
+pkgs.writeShellScriptBin "toggle-waybar" ''
+  if pgrep -x ".waybar-wrapped" > /dev/null; then
+    pkill -x ".waybar-wrapped"
+  else
+    swaymsg exec "waybar"
+  fi
+''

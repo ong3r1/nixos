@@ -3,6 +3,7 @@
   pkgs,
   ...
 }: let
+  toggleWaybarScript = import ./toggle-waybar.nix {inherit pkgs;};
   myKeepassXC = pkgs.keepassxc;
   py = pkgs.python3Packages;
   js = pkgs.nodePackages;
@@ -48,6 +49,9 @@ in {
     };
 
     file = {
+      # Toggle waybar
+      ".config/waybar/toggle-waybar.sh".source = "${toggleWaybarScript}/bin/toggle-waybar";
+
       # Wofi
       ".config/wofi" = {
         source = ../dotfiles/.config/wofi;
