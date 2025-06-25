@@ -18,6 +18,9 @@ in {
     # nixvim
     ./neovim.nix
 
+    # wofi
+    ./wofi.nix
+
     # Import the Zsh configuration
     # ./zsh.nix
 
@@ -42,11 +45,6 @@ in {
       EDITOR = "nvim";
       BAT_THEME = "DarkNeon";
       QT_QPA_PLATFORMTHEME = "qt5ct";
-      XCURSOR_THEME = "Qogir-Dark";
-      XCURSOR_SIZE = "24";
-      GTK_THEME = "Adwaita:dark";
-      ICON_THEME = "Qogir-Dark";
-      XDG_CURRENT_DESKTOP = "sway";
     };
 
     file = {
@@ -56,11 +54,11 @@ in {
         recursive = true;
       };
 
-      # Cursor
-      ".icons/default/index.theme".text = ''
-        [Icon Theme]
-        Inherits=${config.home.pointerCursor.name}
-      '';
+      # GTK 3.0
+      ".config/gtk-3.0" = {
+        source = ../dotfiles/.config/gtk-3.0;
+        recursive = true;
+      };
 
       # Sway
       ".config/sway" = {
@@ -85,14 +83,6 @@ in {
         source = ../dotfiles/.config/alacritty;
         recursive = true;
       };
-    };
-
-    pointerCursor = {
-      package = pkgs.qogir-icon-theme;
-      name = "Qogir-Dark";
-      size = 24;
-      gtk.enable = true;
-      x11.enable = true; # even if you're not using X11, this helps with GTK compatibility
     };
 
     packages = with pkgs; [
@@ -156,7 +146,6 @@ in {
       swappy
       swaynotificationcenter # Notifications
       wl-clipboard
-      wofi # Application launcher
     ];
   };
 
