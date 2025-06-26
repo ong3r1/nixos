@@ -10,6 +10,10 @@
   "sway/workspaces": {
     "format": "{name}",
   },
+  "clock": {
+    "format": "{:%a, %d %b %Y  %H:%M:%S}",
+    "interval": 1
+  },
   "network": {
     "interface": "wlp61s0",
     "format-wifi": "  {essid}",

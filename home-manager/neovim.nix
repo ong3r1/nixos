@@ -3,23 +3,23 @@
     enable = true;
     extraPlugins = with pkgs.vimPlugins; [
       bufferline-nvim
-      nvim-navic
       conform-nvim
       nvim-lint
-      gruvbox-nvim
+      base16-vim
       nvim-autopairs
     ];
     extraConfigLua = ''
       require("config.lint")
       require("config.appearance")
       require("config.fmt")
-      require("config.bread-crumbs")
+      require("config.navic")
     '';
-    colorschemes.gruvbox.enable = true;
+
     globals = {
       mapleader = " ";
       maplocalleader = ",";
     };
+
     # Plugins
     plugins = {
       gitsigns.enable = true;
@@ -89,6 +89,39 @@
       };
       lazygit.enable = true;
       web-devicons.enable = true;
+      navic = {
+        enable = true;
+        settings = {
+          icons = {
+            File = "";
+            Module = "";
+            Namespace = "";
+            Package = "";
+            Class = "";
+            Method = "";
+            Property = "";
+            Field = "";
+            Constructor = "";
+            Enum = "";
+            Interface = "";
+            Function = "";
+            Variable = "";
+            Constant = "";
+            String = "";
+            Number = "";
+            Boolean = "";
+            Array = "";
+            Object = "";
+            Key = "";
+            Null = "";
+            EnumMember = "";
+            Struct = "";
+            Event = "";
+            Operator = "";
+            TypeParameter = "";
+          };
+        };
+      };
 
       # Language Servers
       lsp = {
@@ -258,7 +291,7 @@
       "nvim/lua/config/lint.lua".source = ../dotfiles/.config/nvim/lua/config/lint.lua;
       "nvim/lua/config/appearance.lua".source = ../dotfiles/.config/nvim/lua/config/appearance.lua;
       "nvim/lua/config/fmt.lua".source = ../dotfiles/.config/nvim/lua/config/fmt.lua;
-      "nvim/lua/config/bread-crumbs.lua".source = ../dotfiles/.config/nvim/lua/config/bread-crumbs.lua;
+      "nvim/lua/config/navic.lua".source = ../dotfiles/.config/nvim/lua/config/navic.lua;
     };
   };
 }

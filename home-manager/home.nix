@@ -139,7 +139,6 @@ in {
       tmuxinator
       tree
       typescript-language-server
-      vlc
       vscode
       # Sway and Wayland related packages
       brightnessctl
