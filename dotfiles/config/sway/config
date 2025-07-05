@@ -29,7 +29,7 @@ set $right l
 set $term ghostty
 
 # Application launcher
-set $launcher sway-launcher-desktop
+set $launcher fuzzel
 
 # Application menu
 # set $menu nwg-drawer

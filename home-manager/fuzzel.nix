@@ -7,7 +7,7 @@
       ".config/fuzzel" = {
         source = ../dotfiles/config/fuzzel;
         recursive = true;
-      }
-    }
+      };
+    };
   };
 }
