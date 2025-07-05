@@ -67,13 +67,6 @@
   color: #ebdbb2; /* dark2 */
 }
 
-#tray {
-  background-color: #282828; /* dark0_hard */
-  padding: 5px;
-  margin: 3px 10px;
-  color: #ebdbb2;
-}
-
 #waybar {
   background-color: rgba(0, 0, 0, 0); /* dark0_hard + transparency */
 }

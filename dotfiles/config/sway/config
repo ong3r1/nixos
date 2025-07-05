@@ -26,10 +26,10 @@ set $up k
 set $right l
 
 # Set default terminal emulator
-set $term alacritty
+set $term ghostty
 
 # Application launcher
-set $launcher wofi
+set $launcher sway-launcher-desktop
 
 # Application menu
 # set $menu nwg-drawer
@@ -40,7 +40,7 @@ set $launcher wofi
 # Automate window to workspace
 for_window [class="obsidian"] move to workspace 3
 for_window [app_id="firefox"] move to workspace 2
-for_window [app_id="Alacritty"] move to workspace 1
+for_window [app_id="ghostty"] move to workspace 1
 for_window [app_id="thunderbird"] move to workspace 4
 
 ### Key bindings
@@ -239,7 +239,7 @@ for_window [app_id="thunderbird"] move to workspace 4
 # App shortcuts
 #
     # Launch the file explorer
-    bindsym $mod+p exec alacritty -e lf
+    bindsym $mod+p exec thunar
 
     # Launch the browser
     bindsym $mod+i exec firefox

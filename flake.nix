@@ -2,28 +2,24 @@
   description = "Ongeri's NixOS config";
 
   inputs = {
-    # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    # You can access packages and modules from different nixpkgs revs
-    # at the same time. Here's an working example:
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
-
-    # Nixvim
-    nixvim.url = "github:nix-community/nixvim";
-
-    # Sops
-    sops-nix.url = "github:Mic92/sops-nix";
-
+    # Flakehub Nixpkgs
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Nixvim
+    nixvim.url = "github:nix-community/nixvim/nixos-25.05";
+
+    # Sops
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
     nixvim,
     sops-nix,
     home-manager,
@@ -80,7 +76,7 @@
             home-manager.users.ong3r1 = {
               imports = [
                 inputs.nixvim.homeManagerModules.nixvim
-                ./home-manager/home.nix
+                ./home-manager
               ];
             };
             home-manager.backupFileExtension = "backup";
@@ -91,17 +87,17 @@
 
     # Standalone home-manager configuration entrypoint
     # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      "ong3r1@nixos" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          # Nixvim
-          inputs.nixvim.homeManagerModules.nixvim
-          # > Our main home-manager configuration file <
-          ./home-manager/home.nix
-        ];
-      };
-    };
+    # homeConfigurations = {
+    #   "ong3r1@nixos" = home-manager.lib.homeManagerConfiguration {
+    #     pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+    #     extraSpecialArgs = {inherit inputs outputs;};
+    #     modules = [
+    #       # Nixvim
+    #       inputs.nixvim.homeManagerModules.nixvim
+    #       # > Our main home-manager configuration file <
+    #       ./home-manager/home.nix
+    #     ];
+    #   };
+    # };
   };
 }

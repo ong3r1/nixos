@@ -9,7 +9,6 @@
     packages = with pkgs; [
       lf
       libreoffice
-      neovim
       nsxiv
       vlc
       xdg-utils
@@ -23,7 +22,6 @@
           pkgs.vlc
           pkgs.zathura
           pkgs.libreoffice
-          pkgs.neovim
           pkgs.xdg-utils
         ]}
         case "$1" in

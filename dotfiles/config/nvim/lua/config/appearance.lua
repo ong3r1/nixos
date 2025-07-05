@@ -6,4 +6,5 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.autoindent = true
 vim.opt.smartindent = true
-vim.cmd("colorscheme base16-gruvbox-dark-hard")
+vim.opt.colorcolumn = '81'
+vim.o.background = "dark" -- or "light" for light mode

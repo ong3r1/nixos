@@ -3,33 +3,41 @@
   pkgs,
   ...
 }: let
-  toggleWaybarScript = import ./toggle-waybar.nix {inherit pkgs;};
+  # toggleWaybarScript = import ./toggle-waybar.nix {inherit pkgs;};
   myKeepassXC = pkgs.keepassxc;
   py = pkgs.python3Packages;
-  js = pkgs.nodePackages;
   # uid = toString config.home.userInfo.uid;
 in {
   imports = [
     # Import the Sway configuration
     ./sway.nix
 
+    # Waybar
+    ./waybar.nix
+
     # Import the Tmux configuration
     ./tmux.nix
 
-    # nixvim
-    ./neovim.nix
-
-    # wofi
-    ./wofi.nix
+    # fuzzel
+    ./fuzzel.nix
 
     # File manager
     ./file-manager.nix
 
-    # Import the Zsh configuration
-    # ./zsh.nix
+    # Neovim
+    ./neovim.nix
 
-    # Import the FZF configuration
-    # ./fzf.nix
+    # Gemini CLI
+    ./gemini.nix
+
+    # Ghostty
+    ./ghostty.nix
+
+    # Thunar
+    ./thunar.nix
+
+    # GTK
+    ./gtk.nix
 
     # Import the Firefox configuration
     # ./firefox.nix
@@ -46,54 +54,28 @@ in {
       echo "DEBUG: HOME USERNAME = ${config.home.username}"
     '';
     sessionVariables = {
-      EDITOR = "nvim";
+      XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
       BAT_THEME = "DarkNeon";
       QT_QPA_PLATFORMTHEME = "qt5ct";
     };
 
     file = {
-      # Toggle waybar
-      ".config/waybar/toggle-waybar.sh".source = "${toggleWaybarScript}/bin/toggle-waybar";
-
-      # Wofi
-      ".config/wofi" = {
-        source = ../dotfiles/.config/wofi;
-        recursive = true;
-      };
-
-      # GTK 3.0
-      ".config/gtk-3.0" = {
-        source = ../dotfiles/.config/gtk-3.0;
-        recursive = true;
-      };
 
       # Sway
       ".config/sway" = {
-        source = ../dotfiles/.config/sway;
+        source = ../dotfiles/config/sway;
         recursive = true;
       };
 
       # Swaylock
       ".config/swaylock" = {
-        source = ../dotfiles/.config/swaylock;
-        recursive = true;
-      };
-
-      # Waybar
-      ".config/waybar" = {
-        source = ../dotfiles/.config/waybar;
-        recursive = true;
-      };
-
-      # kitty
-      ".config/alacritty" = {
-        source = ../dotfiles/.config/alacritty;
+        source = ../dotfiles/config/swaylock;
         recursive = true;
       };
     };
 
     packages = with pkgs; [
-      alacritty
+      # alacritty
       alejandra
       bat
       btop
@@ -111,8 +93,6 @@ in {
       go-tools
       golangci-lint
       gopls
-      js.eslint
-      js.prettier
       lazygit
       libnotify
       libsForQt5.qt5ct
@@ -199,9 +179,9 @@ in {
       enable = true;
     };
 
-    waybar = {
-      enable = true;
-    };
+    # waybar = {
+    #   enable = true;
+    # };
 
     git = {
       enable = true;
