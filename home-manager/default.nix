@@ -38,12 +38,6 @@ in {
 
     # GTK
     ./gtk.nix
-
-    # Import the Firefox configuration
-    # ./firefox.nix
-
-    # Import the GPG configuration
-    # ./gpg.nix
   ];
 
   home = {

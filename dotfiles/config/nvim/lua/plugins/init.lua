@@ -1,9 +1,37 @@
 return {
   -- colour scheme
-{
-  "RRethy/base16-nvim",
-  priority = 1000, -- load before other plugins
-},
+  {
+    "RRethy/base16-nvim",
+    priority = 1000, -- load before other plugins
+  },
+
+  -- Snippets
+  {
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp"
+  },
+
+  -- LSP
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local servers = require("config.lsp")
+      local lspconfig = require("lspconfig")
+      for name, opts in pairs(servers) do
+        lspconfig[name].setup(opts)
+      end
+    end,
+  },
+
+  -- LspKind
+  {
+    "onsails/lspkind.nvim",
+    lazy = true, -- only loads when required
+  },
 
   -- autopairs
   {

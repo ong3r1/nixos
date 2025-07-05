@@ -79,23 +79,23 @@
     font = "Lat2-Terminus16"; # Or something like ter-u32b if you want HUGE font
     keyMap = "us";
     colors = [
-      "282a2e" # black
-      "a54242" # red
-      "8c9440" # green
-      "de935f" # yellow
-      "5f819d" # blue
-      "85678f" # magenta
-      "5e8d87" # cyan
-      "707880" # white
+      "031a16" # black         (base00)
+      "3e9688" # red           (base08)
+      "883e96" # green         (base0B)
+      "3e4c96" # yellow        (base0A)
+      "96883e" # blue          (base0D)
+      "963e4c" # magenta       (base0E)
+      "4c963e" # cyan          (base0C)
+      "81b5ac" # white         (base05)
 
-      "373b41" # bright black
-      "cc6666" # bright red
-      "b5bd68" # bright green
-      "f0c674" # bright yellow
-      "81a2be" # bright blue
-      "b294bb" # bright magenta
-      "8abeb7" # bright cyan
-      "c5c8c6" # bright white
+      "2b685e" # bright black  (base03)
+      "3e9688" # bright red    (base08)
+      "883e96" # bright green  (base0B)
+      "3e4c96" # bright yellow (base0A)
+      "96883e" # bright blue   (base0D)
+      "963e4c" # bright magenta(base0E)
+      "4c963e" # bright cyan   (base0C)
+      "d2e7e4" # bright white  (base07)
     ];
   };
 

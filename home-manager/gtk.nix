@@ -1,5 +1,15 @@
 { pkgs, ... }:
 {
+  home = {
+    pointerCursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 24;
+      gtk.enable = true;
+      x11.enable = true;
+    };
+  };
+
   gtk = {
     enable = true;
 
@@ -9,18 +19,18 @@
     };
 
     iconTheme = {
-      name = "Qogir-Dark"; # must match actual casing
+      name = "Qogir-Dark";
       package = pkgs.qogir-icon-theme;
     };
 
     cursorTheme = {
-      name = "Qogir-Dark";
+      name = "Bibata-Modern-Classic";
       size = 24;
-      package = pkgs.qogir-icon-theme;
+      package = pkgs.bibata-cursors;
     };
 
     font = {
-      name = "Fira Sans 10";
+      name = "MesloLGS Nerd Font";
     };
   };
 }
