@@ -1,2 +1,2 @@
-vim.cmd("colorscheme base16-apathy")
+vim.cmd("colorscheme base16-kanagawa-dragon")
 

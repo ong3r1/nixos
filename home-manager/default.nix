@@ -38,6 +38,15 @@ in {
 
     # GTK
     ./gtk.nix
+
+    # Starship
+    ./starship.nix
+
+    # Zoxide
+    ./zoxide.nix
+
+    # ZSH
+    ./zsh.nix
   ];
 
   home = {
@@ -77,6 +86,7 @@ in {
       clippy
       codespell
       curl
+      eza
       fd
       font-awesome
       gcc
@@ -139,15 +149,6 @@ in {
 
   # 1. Enable and configure Zsh as your default shell
   programs = {
-    zsh = {
-      enable = true;
-      enableCompletion = true; # Enable Zsh completion
-      oh-my-zsh = {
-        enable = true;
-        theme = "robbyrussell"; # You can change this to any other theme you prefer
-      };
-    };
-
     # FZF integration with Zsh
     fzf = {
       enable = true;
