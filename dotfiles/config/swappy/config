@@ -1,0 +1,4 @@
+[Default]
+save_dir=$HOME/Pictures/Screenshots/
+early_exit=true
+auto_save=true

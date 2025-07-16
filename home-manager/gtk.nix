@@ -30,7 +30,7 @@
     };
 
     font = {
-      name = "MesloLGS Nerd Font";
+      name = "Inter 10";
     };
   };
 }

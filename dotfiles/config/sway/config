@@ -233,6 +233,9 @@ for_window [app_id="thunderbird"] move to workspace 4
         # Backlight
         XF86MonBrightnessUp exec brightnessctl -c backlight set +5%
         XF86MonBrightnessDown exec brightnessctl -c backlight set 5%-
+
+        # Microphone
+        XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
     }
 
 #
@@ -256,15 +259,26 @@ for_window [app_id="thunderbird"] move to workspace 4
     # bindsym $mod+Ctrl+x exec cliphist list | fuzzel -d -w 90 -l 30 -t cc9393ff -S cc9393ff -p "Select an entry to delete it from cliphist:"| cliphist delete
     # Note: you can clear all cliphist entries by running `cliphist wipe`
 
-#
-# Screenshots
-#
+    #
+    # Screenshots
+    #
     # Snip a selection and pipe to swappy
-    bindsym Print exec grim -g "$(slurp)" - | swappy -f - -o /tmp/screenshot.png && wl-copy < /tmp/screenshot.png && notify-send "Screenshot copied!"
+    bindsym Print exec grim -g "$(slurp)" - | swappy -f -
     # Screenshot a window and pipe to swappy
-    bindsym Ctrl+Print exec ~/.config/sway/scripts/screenshot_window.sh
+    # bindsym Ctrl+Print exec ~/.config/sway/scripts/screenshot_window.sh
     # Screenshot the current display and pipe to swappy
-    bindsym Shift+Print exec ~/.config/sway/scripts/screenshot_display.sh
+    # bindsym Shift+Print exec ~/.config/sway/scripts/screenshot_display.sh
+
+    # Emojis
+    bindsym $mod+Alt+e exec rofimoji
+
+    # Wtype
+    exec "swaymsg seat seat0 allow-text-input enable"
+
+    #
+    # Snippets
+    #
+    bindsym $mod+Shift+s exec ~/.config/sway/snip.sh
 
     # Exit Sway
     bindsym $mod+Shift+e exit

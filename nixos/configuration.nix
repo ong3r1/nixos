@@ -74,6 +74,22 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
+  fonts = {
+    packages = with pkgs; [
+      inter
+      eb-garamond
+    ];
+
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [ "MesloLGS Nerd Font" ];
+        sansSerif = [ "Inter" ];
+        serif = [ "EB Garamond" ];
+      };
+    };
+  };
+
   console = {
     earlySetup = true;
     font = "Lat2-Terminus16"; # Or something like ter-u32b if you want HUGE font
@@ -126,18 +142,6 @@
   systemd = {
     services = {
       "getty@tty1".enable = false;
-    };
-    user = {
-      services = {
-        udiskie = {
-          description = "udiskie automounter";
-          wantedBy = ["default.target"];
-          serviceConfig = {
-            ExecStart = "${pkgs.udiskie}/bin/udiskie --smart-tray --no-automount";
-            Restart = "always";
-          };
-        };
-      };
     };
   };
 
@@ -275,7 +279,7 @@
       enable = true;
       wireplumber.enable = true; # Or media-session.enable = true; if still using that older one
       alsa.enable = true;
-      alsa.support32Bit = true;
+      audio.enable = true;
       pulse.enable = true;
       # If you want to use JACK applications, uncomment this
       #jack.enable = true;
