@@ -64,14 +64,14 @@
       # Opinionated: disable global registry
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
+      # nix-path = config.nix.nixPath;
     };
     # Opinionated: disable channels
     channel.enable = true;
 
     # Opinionated: make flake registry and nix path match flake inputs
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+    # nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
   fonts = {
@@ -117,6 +117,11 @@
 
   # Bootloader.
   boot = {
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    kernelModules = [ "v4l2loopback" ];
+    extraModprobeConfig = ''
+      options v4l2loopback exclusive_caps=1 video_nr=1 card_label="VirtualCamera"
+    '';
     plymouth.enable = false;
     loader = {
       grub = {
@@ -137,6 +142,17 @@
       };
     };
     kernelPackages = pkgs.linuxPackages_latest;
+  };
+
+  boot.kernel.sysctl = {
+    "fs.epoll.max_user_watches" = 1048576;
+    "kernel.unprivileged_userns_clone" = 1;
+  };
+
+  fileSystems."/dev/binderfs" = {
+    device = "binderfs";
+    fsType = "binder";
+    options = [ "defaults" ];
   };
 
   systemd = {
@@ -340,6 +356,7 @@
         "input"
         "render"
         "keys"
+        "waydroid"
       ];
     };
   };

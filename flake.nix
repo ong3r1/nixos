@@ -15,6 +15,12 @@
     # Sops
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # nur
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -70,17 +76,32 @@
           # 👇 This line integrates Home Manager as a NixOS module
           home-manager.nixosModules.home-manager
 
-          {
+          ({pkgs, inputs, ...}: {
+            virtualisation.waydroid.enable = true;
+
+            users.groups.waydroid = {};
+
+            services.udev.extraRules = ''
+              SUBSYSTEM=="video4linux", KERNEL=="video[0-9]*", GROUP="waydroid", MODE="0660"
+            '';
+
+            nixpkgs.overlays = [
+              inputs.nur.overlays.default
+            ];
+            
+            environment.systemPackages = with pkgs; [
+              nur.repos.ataraxiasjel.waydroid-script
+            ];
+
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.ong3r1 = {
               imports = [
-                inputs.nixvim.homeManagerModules.nixvim
                 ./home-manager
               ];
             };
             home-manager.backupFileExtension = "backup";
-          }
+          })
         ];
       };
     };

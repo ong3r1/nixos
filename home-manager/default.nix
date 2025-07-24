@@ -98,9 +98,10 @@ in {
     };
 
     packages = with pkgs; [
-      # alacritty
       alejandra
+      ardour
       bat
+      blender
       btop
       cargo
       clippy
@@ -112,11 +113,13 @@ in {
       gcc
       genymotion
       gh
+      gnucash
       gnupg
       go
       go-tools
       golangci-lint
       gopls
+      imagemagick
       jq
       just
       kde.kdenlive
