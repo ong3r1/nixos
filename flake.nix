@@ -79,12 +79,6 @@
           ({pkgs, inputs, ...}: {
             virtualisation.waydroid.enable = true;
 
-            users.groups.waydroid = {};
-
-            services.udev.extraRules = ''
-              SUBSYSTEM=="video4linux", KERNEL=="video[0-9]*", GROUP="waydroid", MODE="0660"
-            '';
-
             nixpkgs.overlays = [
               inputs.nur.overlays.default
             ];
