@@ -113,6 +113,7 @@ in {
       gcc
       genymotion
       gh
+      glaxnimate
       gnucash
       gnupg
       go
