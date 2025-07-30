@@ -69,6 +69,7 @@ in {
       XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
       BAT_THEME = "DarkNeon";
       QT_QPA_PLATFORMTHEME = "qt5ct";
+XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/exports/share:/etc/profiles/per-user/${config.home.username}/share:/usr/local/share:/usr/share";
     };
 
     file = {
@@ -121,6 +122,7 @@ in {
       golangci-lint
       gopls
       imagemagick
+      inkscape
       jq
       just
       kde.kdenlive
@@ -136,6 +138,7 @@ in {
       obsidian
       oh-my-zsh
       pgformatter
+      pureref
       py.black
       py.flake8
       py.isort

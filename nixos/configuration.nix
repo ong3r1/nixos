@@ -150,9 +150,18 @@
     options = [ "defaults" ];
   };
 
+  xdg.portal.enable = true;
+
   systemd = {
     services = {
       "getty@tty1".enable = false;
+      flatpak-repo = {
+        wantedBy = [ "multi-user.target" ];
+        path = [ pkgs.flatpak ]; # Ensure flatpak executable is in PATH
+        script = ''
+          flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo
+        '';
+      };
     };
   };
 
@@ -248,6 +257,8 @@
   services = {
     # Ensure DBus is enabled (critical)
     dbus.enable = true;
+
+    flatpak.enable = true;
 
     greetd = {
       enable = true;

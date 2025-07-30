@@ -1,7 +1,5 @@
 # Window Style
 default_border none
-gaps inner 5
-gaps outer 5
 
 # Wallpaper
 output * bg ~/Pictures/wallpapers/forest.jpg fill
