@@ -79,6 +79,9 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       # Focus Block Timer
       ".local/bin/focus".source = ../dotfiles/scripts/focus-block.sh;
 
+      # Run App Images
+      ".local/bin/runai".source = ../dotfiles/scripts/run-appimage.sh;
+
       # Sway
       ".config/sway" = {
         source = ../dotfiles/config/sway;
@@ -114,7 +117,11 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       gcc
       genymotion
       gh
+      gimp3
+      gimp3Plugins.gmic
       glaxnimate
+      gmic
+      gmic-qt
       gnucash
       gnupg
       go
@@ -133,6 +140,7 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       nerd-fonts.jetbrains-mono
       nerd-fonts.meslo-lg
       nixd
+      ngrok
       nodejs
       obs-studio
       obsidian
