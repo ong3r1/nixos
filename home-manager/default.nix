@@ -140,7 +140,6 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       nerd-fonts.jetbrains-mono
       nerd-fonts.meslo-lg
       nixd
-      ngrok
       nodejs
       obs-studio
       obsidian
@@ -151,6 +150,7 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       py.flake8
       py.isort
       pyright
+      qbittorrent
       ripgrep
       rofi
       rofimoji
