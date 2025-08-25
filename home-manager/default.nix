@@ -113,6 +113,7 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       curl
       eza
       fd
+      foliate
       font-awesome
       gcc
       genymotion
@@ -160,8 +161,9 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       sqlcheck
       sqls
       thunderbird
-      tomato-c
       tmuxinator
+      tomato-c
+      tor-browser
       tree
       typescript-language-server
       vscode
