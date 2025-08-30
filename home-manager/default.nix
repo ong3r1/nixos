@@ -133,7 +133,24 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       inkscape
       jq
       just
-      kde.kdenlive
+      (pkgs.symlinkJoin {
+        name = "kdenlive-wrapped";
+        paths = [ kde.kdenlive ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/kdenlive \
+            --prefix PATH : ${
+              pkgs.python3.withPackages (ps: with ps; [
+                numba numpy torch openai-whisper srt
+              ])
+            }/bin \
+            --set PYTHON_EXECUTABLE ${
+              pkgs.python3.withPackages (ps: with ps; [
+                numba numpy torch openai-whisper srt
+              ])
+            }/bin/python3
+        '';
+      })
       lazygit
       libnotify
       libsForQt5.qt5ct
@@ -151,6 +168,7 @@ XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/e
       py.flake8
       py.isort
       pyright
+      python313
       qbittorrent
       ripgrep
       rofi
