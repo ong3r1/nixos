@@ -139,6 +139,30 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
+  virtualisation = {
+    # Enable the core virtualization daemon.
+    libvirtd = {
+      enable = true;
+      qemu = {
+        # Enable the swtpm service for software TPM emulation.
+        swtpm.enable = true;
+        # Enable OVMF with secure boot and TPM support.
+        # This is crucial for VMs that require a UEFI environment, like Windows 11.
+        ovmf = {
+          enable = true;
+          packages = [
+            (pkgs.OVMFFull.override {
+              secureBoot = true;
+              tpmSupport = true;
+            })
+          ];
+          paths = [ "/run/libvirt/nix-ovmf" ];
+        };
+      };
+    };
+  };
+
+
   boot.kernel.sysctl = {
     "fs.epoll.max_user_watches" = 1048576;
     "kernel.unprivileged_userns_clone" = 1;
@@ -207,10 +231,12 @@
       ffmpeg
       gnupg
       pinentry-gtk2
+      qemu_kvm
       sops
       sway
       swaylock
       swayidle
+      swtpm
       waybar
     ];
     etc = {
@@ -244,6 +270,7 @@
   programs = {
     sway.enable = true;
     zsh.enable = true;
+    virt-manager.enable = true;
     gnupg = {
       agent = {
         enable = true;
@@ -361,6 +388,7 @@
         "input"
         "render"
         "keys"
+        "libvirtd"
       ];
     };
   };
