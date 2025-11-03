@@ -127,7 +127,6 @@ in {
       gmic
       gmic-qt
       gnucash
-      gnupg
       go
       go-tools
       golangci-lint
@@ -227,6 +226,12 @@ in {
       # };
     };
 
+    # GPG
+    gpg = {
+      enable = true;
+      package = pkgs.gnupg24;
+    };
+
     direnv = {
       enable = true;
       nix-direnv.enable = true;  # enables seamless integration with nix-shell/nix develop
@@ -262,6 +267,15 @@ in {
 
     home-manager = {
       enable = true;
+    };
+  };
+
+  services = {
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      defaultCacheTtl = 1800;
+      maxCacheTtl = 7200;
     };
   };
 }
