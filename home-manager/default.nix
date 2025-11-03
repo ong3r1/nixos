@@ -114,13 +114,15 @@ in {
       curl
       eza
       fd
+      file-roller
       foliate
       font-awesome
       gcc
       genymotion
       gh
-      gimp3
-      gimp3Plugins.gmic
+      (pkgs.gimp-with-plugins.override {
+        plugins = [ pkgs.gmic ];
+      })
       glaxnimate
       gmic
       gmic-qt
@@ -163,6 +165,7 @@ in {
       obs-studio
       obsidian
       oh-my-zsh
+      p7zip
       pgformatter
       pureref
       py.black
@@ -179,6 +182,7 @@ in {
       rustfmt
       sqlcheck
       sqls
+      taskjuggler
       thunderbird
       tmuxinator
       tomato-c
@@ -197,6 +201,8 @@ in {
       slurp
       swappy
       swaynotificationcenter # Notifications
+      unrar
+      unzip
       watson
       wl-clipboard
       wtype
@@ -244,7 +250,7 @@ in {
       userName = "ong3r1";
       userEmail = "binmawe@gmail.com";
       signing = {
-        key = "8AD822AA6975D2B7"; # Same GPG key ID
+        key = "B3E6DF108565F22C"; # Same GPG key ID
         signByDefault = true;
       };
       # Optional: Make Git use gpg-agent for signing

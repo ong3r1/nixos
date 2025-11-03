@@ -1,11 +1,17 @@
 { pkgs, ... }:
 {
-  home = {
-    packages = with pkgs; [
-      xfce.thunar
-      xfce.thunar-archive-plugin # for archive integration
-      xfce.thunar-volman # for volume management (though usually handled by DE)
-      xfce.thunar-vcs-plugin # for git support
-    ];
-  };
+  home.packages = with pkgs; [
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
+    xfce.thunar-vcs-plugin
+  ];
+
+    # Wrap thunar with correct plugin path
+  home.file.".local/bin/thunar".text = ''
+    #!/usr/bin/env bash
+    export THUNARX_DIRS="${pkgs.xfce.thunar-archive-plugin}/lib/thunarx-3"
+    exec ${pkgs.xfce.thunar}/bin/thunar "$@"
+  '';
+  home.file.".local/bin/thunar".executable = true;
 }

@@ -90,34 +90,13 @@
     };
   };
 
-  console = {
-    earlySetup = true;
-    font = "Lat2-Terminus16"; # Or something like ter-u32b if you want HUGE font
-    keyMap = "us";
-    colors = [
-      "031a16" # black         (base00)
-      "3e9688" # red           (base08)
-      "883e96" # green         (base0B)
-      "3e4c96" # yellow        (base0A)
-      "96883e" # blue          (base0D)
-      "963e4c" # magenta       (base0E)
-      "4c963e" # cyan          (base0C)
-      "81b5ac" # white         (base05)
-
-      "2b685e" # bright black  (base03)
-      "3e9688" # bright red    (base08)
-      "883e96" # bright green  (base0B)
-      "3e4c96" # bright yellow (base0A)
-      "96883e" # bright blue   (base0D)
-      "963e4c" # bright magenta(base0E)
-      "4c963e" # bright cyan   (base0C)
-      "d2e7e4" # bright white  (base07)
-    ];
-  };
-
   # Bootloader.
   boot = {
-    plymouth.enable = false;
+    plymouth = {
+      enable = true;
+      themePackages = [ pkgs.adi1090x-plymouth-themes ];
+      theme = "red_loader";
+    };
     loader = {
       grub = {
         enable = false;
@@ -136,6 +115,7 @@
         enable = true;
       };
     };
+    kernelParams = [ "quiet" "splash" ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
@@ -156,7 +136,6 @@
               tpmSupport = true;
             })
           ];
-          paths = [ "/run/libvirt/nix-ovmf" ];
         };
       };
     };
@@ -227,6 +206,8 @@
       XDG_SESSION_TYPE = "wayland";
     };
     systemPackages = with pkgs; [
+      alsa-utils
+      android-tools
       dbus
       ffmpeg
       gnupg
@@ -285,6 +266,9 @@
     # Ensure DBus is enabled (critical)
     dbus.enable = true;
 
+    #udev
+    udev.packages = [ pkgs.android-udev-rules ];
+
     flatpak.enable = true;
 
     greetd = {
@@ -320,9 +304,6 @@
     printing = {
       enable = true;
     };
-    pulseaudio = {
-      enable = false; # Use Pipewire instead
-    };
     pipewire = {
       enable = true;
       wireplumber.enable = true; # Or media-session.enable = true; if still using that older one
@@ -330,7 +311,7 @@
       audio.enable = true;
       pulse.enable = true;
       # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
+      jack.enable = true;
 
       # use the example session manager (no others are packaged yet so this is enabled by default,
       # no need to redefine it in your config for now)
@@ -362,7 +343,6 @@
   # Enable CUPS to print documents.
   security = {
     polkit.enable = true;
-    # Enable sound with pipewire.
     rtkit.enable = true;
   };
 
@@ -380,6 +360,7 @@
       shell = pkgs.zsh;
       # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = [
+        "adbusers"
         "wheel"
         "networkmanager"
         "video"
