@@ -77,16 +77,10 @@
           home-manager.nixosModules.home-manager
 
           ({pkgs, inputs, ...}: {
-            virtualisation.waydroid.enable = true;
-
             nixpkgs.overlays = [
               inputs.nur.overlays.default
             ];
             
-            environment.systemPackages = with pkgs; [
-              nur.repos.ataraxiasjel.waydroid-script
-            ];
-
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.ong3r1 = {

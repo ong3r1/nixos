@@ -119,7 +119,6 @@ in {
       foliate
       font-awesome
       gcc
-      genymotion
       gh
       (pkgs.gimp-with-plugins.override {
         plugins = [ pkgs.gmic ];
@@ -157,6 +156,7 @@ in {
       lazygit
       libnotify
       libsForQt5.qt5ct
+      libsecret
       material-design-icons
       nerd-fonts.jetbrains-mono
       nerd-fonts.meslo-lg
