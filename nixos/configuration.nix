@@ -271,11 +271,6 @@
 
     flatpak = {
       enable = true;
-      remotes = {
-        flathub = {
-          url = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-        };
-      };
     };
 
     tailscale.enable = true;
