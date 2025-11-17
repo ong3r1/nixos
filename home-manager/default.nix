@@ -162,7 +162,6 @@ in {
       nerd-fonts.meslo-lg
       nixd
       nodejs
-      obs-studio
       obsidian
       oh-my-zsh
       p7zip
