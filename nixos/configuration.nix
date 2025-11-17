@@ -269,7 +269,14 @@
     #udev
     udev.packages = [ pkgs.android-udev-rules ];
 
-    flatpak.enable = true;
+    flatpak = {
+      enable = true;
+      remotes = {
+        flathub = {
+          url = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+        };
+      };
+    };
 
     tailscale.enable = true;
 
