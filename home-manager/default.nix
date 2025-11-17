@@ -105,7 +105,6 @@ in {
 
     packages = with pkgs; [
       alejandra
-      ardour
       bat
       blender
       btop
