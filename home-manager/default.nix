@@ -19,9 +19,6 @@ in {
     # GTK
     ./gtk.nix
 
-    # Gemini CLI
-    ./gemini.nix
-
     # Ghostty
     ./ghostty.nix
 
@@ -106,7 +103,6 @@ in {
     packages = with pkgs; [
       alejandra
       bat
-      blender
       btop
       cargo
       clippy
@@ -128,43 +124,33 @@ in {
       gnucash
       go
       go-tools
+      gotools
       golangci-lint
       gopls
       imagemagick
       inkscape
       jq
       just
-      (pkgs.symlinkJoin {
-        name = "kdenlive-wrapped";
-        paths = [ kde.kdenlive ];
-        buildInputs = [ pkgs.makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/kdenlive \
-            --prefix PATH : ${
-              pkgs.python3.withPackages (ps: with ps; [
-                numba numpy torch openai-whisper srt
-              ])
-            }/bin \
-            --set PYTHON_EXECUTABLE ${
-              pkgs.python3.withPackages (ps: with ps; [
-                numba numpy torch openai-whisper srt
-              ])
-            }/bin/python3
-        '';
-      })
       lazygit
       libnotify
       libsForQt5.qt5ct
       libsecret
+      lua-language-server
       material-design-icons
       nerd-fonts.jetbrains-mono
       nerd-fonts.meslo-lg
       nixd
+      nixpkgs-fmt
       nodejs
+      nodePackages.typescript-language-server
+      nodePackages.vscode-langservers-extracted
+      nodePackages.eslint_d
+      nodePackages.prettier
       obsidian
       oh-my-zsh
       p7zip
       pgformatter
+      prettierd
       pureref
       py.black
       py.flake8
@@ -197,6 +183,7 @@ in {
       pavucontrol
       playerctl # Media control
       slurp
+      stylua
       swappy
       swaynotificationcenter # Notifications
       unrar
