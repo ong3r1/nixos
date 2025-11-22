@@ -1,14 +1,15 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config
+, pkgs
+, ...
+}:
+let
   # toggleWaybarScript = import ./toggle-waybar.nix {inherit pkgs;};
   myKeepassXC = pkgs.keepassxc;
   py = pkgs.python3Packages;
   kde = pkgs.kdePackages;
   # uid = toString config.home.userInfo.uid;
-in {
+in
+{
   imports = [
     # fuzzel
     ./fuzzel.nix
@@ -30,6 +31,9 @@ in {
 
     # Import the Sway configuration
     ./sway.nix
+
+    # Import hyprland configuration
+    ./hyprland.nix
 
     # Import the Tmux configuration
     ./tmux.nix
@@ -68,7 +72,7 @@ in {
       QT_QPA_PLATFORMTHEME = "qt5ct";
       XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/exports/share:/etc/profiles/per-user/${config.home.username}/share:/usr/local/share:/usr/share";
       LIBVIRT_DEFAULT_URI = "qemu:///system";
-      SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)";
+      SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
     };
 
     file = {
@@ -220,12 +224,12 @@ in {
 
     direnv = {
       enable = true;
-      nix-direnv.enable = true;  # enables seamless integration with nix-shell/nix develop
+      nix-direnv.enable = true; # enables seamless integration with nix-shell/nix develop
     };
 
     firefox = {
       enable = true;
-      nativeMessagingHosts = [myKeepassXC];
+      nativeMessagingHosts = [ myKeepassXC ];
     };
 
     keepassxc = {

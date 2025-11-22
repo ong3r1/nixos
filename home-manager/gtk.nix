@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home = {
     pointerCursor = {
       package = pkgs.bibata-cursors;
@@ -14,8 +13,8 @@
     enable = true;
 
     theme = {
-      name = "Materia-dark";
-      package = pkgs.materia-theme;
+      name = "Qogir-Dark";
+      package = pkgs.qogir-theme;
     };
 
     iconTheme = {
