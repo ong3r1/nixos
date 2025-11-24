@@ -1,0 +1,14 @@
+;; Define a window named "bar"
+(defwindow bar
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "10px"
+                      :width "90%"
+                      :height "40px"
+                      :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  :namespace "eww_bar"
+  (box :class "bar-container"
+       :orientation "h"
+       (label :text "Hello Hyprland")))

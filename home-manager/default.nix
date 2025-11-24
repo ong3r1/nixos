@@ -73,6 +73,7 @@ in
       XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/exports/share:/etc/profiles/per-user/${config.home.username}/share:/usr/local/share:/usr/share";
       LIBVIRT_DEFAULT_URI = "qemu:///system";
       SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
+      NIXOS_OZONE_WL = "1";
     };
 
     file = {
@@ -113,6 +114,7 @@ in
       codespell
       curl
       eza
+      eww-wayland
       fd
       file-roller
       foliate
@@ -131,6 +133,7 @@ in
       gotools
       golangci-lint
       gopls
+      hyprlock
       imagemagick
       inkscape
       jq
@@ -140,6 +143,7 @@ in
       libsForQt5.qt5ct
       libsecret
       lua-language-server
+      mako
       material-design-icons
       nerd-fonts.jetbrains-mono
       nerd-fonts.meslo-lg
@@ -182,6 +186,7 @@ in
       brightnessctl
       feh
       grim
+      grimblast
       networkmanagerapplet
       pamixer
       pavucontrol

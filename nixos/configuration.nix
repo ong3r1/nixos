@@ -1,12 +1,11 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
+{ inputs
+, outputs
+, lib
+, config
+, pkgs
+, ...
 }: {
   # You can import other NixOS modules here
   imports = [
@@ -49,30 +48,32 @@
     };
   };
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+  nix =
+    let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in
+    {
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 7d";
+      };
 
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      # Opinionated: disable global registry
-      flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      # nix-path = config.nix.nixPath;
-    };
-    # Opinionated: disable channels
-    channel.enable = true;
+      settings = {
+        # Enable flakes and new 'nix' command
+        experimental-features = "nix-command flakes";
+        # Opinionated: disable global registry
+        flake-registry = "";
+        # Workaround for https://github.com/NixOS/nix/issues/9574
+        # nix-path = config.nix.nixPath;
+      };
+      # Opinionated: disable channels
+      channel.enable = true;
 
-    # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    # nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-  };
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      # nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+    };
 
   fonts = {
     packages = with pkgs; [
@@ -110,12 +111,15 @@
       };
     };
     initrd = {
-      kernelModules = ["i915"];
+      kernelModules = [ "i915" ];
       systemd = {
         enable = true;
       };
     };
-    kernelParams = [ "quiet" "splash" ];
+    kernelParams = [
+      "quiet"
+      "splash"
+    ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
@@ -144,10 +148,9 @@
     docker = {
       enable = true;
       enableOnBoot = true;
-      autoPrune.enable = true;        # clears dangling images automatically
+      autoPrune.enable = true; # clears dangling images automatically
     };
   };
-
 
   boot.kernel.sysctl = {
     "fs.epoll.max_user_watches" = 1048576;
@@ -257,6 +260,7 @@
   # Sway
   programs = {
     sway.enable = true;
+    hyprland.enable = true;
     zsh.enable = true;
     virt-manager.enable = true;
     gnupg = {
