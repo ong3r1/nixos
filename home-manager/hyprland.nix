@@ -127,8 +127,6 @@
           natural_scroll = true;
           disable_while_typing = true; # Fixed: was 'dwt'
           middle_button_emulation = true;
-          scroll_method = "2fg"; # Fixed: was 'two_finger'
-          accel_profile = "adaptive";
           "tap-to-click" = true; # Fixed: was 'tap', quotes required for dashes
         };
       };

@@ -114,7 +114,7 @@ in
       codespell
       curl
       eza
-      eww-wayland
+      eww
       fd
       file-roller
       foliate
