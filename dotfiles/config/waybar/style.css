@@ -26,23 +26,22 @@
 /* 🟢 Active Workspace (Focused) */
 #workspaces button.active {
   background: #458588; /* blue */
-  color: #fbf1c7;       /* lightest bg */
+  color: #fbf1c7; /* lightest bg */
   font-weight: bold;
-  border: 2px solid #83a598; /* light blue border for glow */
   border-bottom: 2px solid #fabd2f; /* yellow underline */
 }
 
 /* 🔵 Visible on another monitor (but not focused) */
 #workspaces button.visible {
   background: #504945; /* bg2 */
-  color: #d5c4a1;       /* light4 */
+  color: #d5c4a1; /* light4 */
   font-weight: bold;
 }
 
 /* 🔴 Urgent Window Present */
 #workspaces button.urgent {
   background: #cc241d; /* red */
-  color: #fbf1c7;       /* lightest bg */
+  color: #fbf1c7; /* lightest bg */
   font-weight: bold;
   box-shadow: 0 0 5px #cc241d;
 }
@@ -53,7 +52,10 @@
   color: #928374; /* gray */
 }
 
-#pulseaudio, #network, #battery, #clock {
+#pulseaudio,
+#network,
+#battery,
+#clock {
   background-color: #282828; /* dark1 */
   padding: 5px 10px;
   margin: 3px;
@@ -63,6 +65,10 @@
 #clock {
   background-color: #1d2021; /* black */
   color: #ebdbb2; /* dark2 */
+}
+
+#tray {
+  margin: 0px 12px;
 }
 
 #waybar {

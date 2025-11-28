@@ -29,9 +29,6 @@ in
     # Starship
     ./starship.nix
 
-    # Import the Sway configuration
-    ./sway.nix
-
     # Import hyprland configuration
     ./hyprland.nix
 
@@ -86,21 +83,9 @@ in
       # Run App Images
       ".local/bin/runai".source = ../dotfiles/scripts/run-appimage.sh;
 
-      # Sway
-      ".config/sway" = {
-        source = ../dotfiles/config/sway;
-        recursive = true;
-      };
-
       # swappy
       ".config/swappy" = {
         source = ../dotfiles/config/swappy;
-        recursive = true;
-      };
-
-      # Swaylock
-      ".config/swaylock" = {
-        source = ../dotfiles/config/swaylock;
         recursive = true;
       };
     };
@@ -114,7 +99,6 @@ in
       codespell
       curl
       eza
-      eww
       fd
       file-roller
       foliate

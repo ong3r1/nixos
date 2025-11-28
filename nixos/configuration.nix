@@ -6,7 +6,12 @@
 , config
 , pkgs
 , ...
-}: {
+}:
+let
+  # Use a file path relative to your config file
+  myWallpaper = ../images/nix-wallpaper-simple-dark-gray_bottom.png;
+in
+{
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/nixos):
@@ -152,6 +157,10 @@
     };
   };
 
+  networking.extraHosts = ''
+    127.0.0.1 server.local
+  '';
+
   boot.kernel.sysctl = {
     "fs.epoll.max_user_watches" = 1048576;
     "kernel.unprivileged_userns_clone" = 1;
@@ -224,9 +233,6 @@
       pinentry-gtk2
       qemu_kvm
       sops
-      sway
-      swaylock
-      swayidle
       swtpm
       waybar
     ];
@@ -259,7 +265,6 @@
 
   # Sway
   programs = {
-    sway.enable = true;
     hyprland.enable = true;
     zsh.enable = true;
     virt-manager.enable = true;
@@ -269,6 +274,16 @@
         enableExtraSocket = true;
         enableSSHSupport = true;
         pinentryPackage = pkgs.pinentry-gtk2; # Choose from: "curses", "gtk2", "qt", "gnome3"
+      };
+    };
+    regreet = {
+      enable = true;
+      settings = {
+        appearance = {
+          gtk-theme = "Qogir-Dark"; # <--- Change this
+          icon-theme = "Qogir-Dark";
+          background = myWallpaper; # <--- Use the NixOS store path (see below)
+        };
       };
     };
   };
@@ -290,31 +305,10 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd sway";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd hyprland";
           user = "greeter";
         };
       };
-    };
-    xserver = {
-      enable = false;
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
-      # desktopManager = {
-      #   gnome = {
-      #     enable = true;
-      #   };
-      # };
-      # displayManager = {
-      #   lightdm = {
-      #     enable = false;
-      #   };
-      #   gdm = {
-      #     enable = true;
-      #     # wayland = true; # Enable Wayland support
-      #   };
-      # };
     };
     printing = {
       enable = true;
