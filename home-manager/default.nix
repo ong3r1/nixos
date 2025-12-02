@@ -20,6 +20,9 @@ in
     # Ghostty
     ./ghostty.nix
 
+    # walker
+    ./walker.nix
+
     # Neovim
     ./neovim.nix
 
