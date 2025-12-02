@@ -83,6 +83,9 @@ in
       # Run App Images
       ".local/bin/runai".source = ../dotfiles/scripts/run-appimage.sh;
 
+      # Cycle through keyboard brightness
+      ".local/bin/kbd-brightness".source = ../dotfiles/scripts/kbd-brightness.sh;
+
       # swappy
       ".config/swappy" = {
         source = ../dotfiles/config/swappy;
@@ -93,6 +96,7 @@ in
     packages = with pkgs; [
       alejandra
       bat
+      blueman
       btop
       cargo
       clippy
@@ -131,6 +135,7 @@ in
       material-design-icons
       nerd-fonts.jetbrains-mono
       nerd-fonts.meslo-lg
+      ngrok
       nixd
       nixpkgs-fmt
       nodejs

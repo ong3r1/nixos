@@ -276,16 +276,6 @@ in
         pinentryPackage = pkgs.pinentry-gtk2; # Choose from: "curses", "gtk2", "qt", "gnome3"
       };
     };
-    regreet = {
-      enable = true;
-      settings = {
-        appearance = {
-          gtk-theme = "Qogir-Dark"; # <--- Change this
-          icon-theme = "Qogir-Dark";
-          background = myWallpaper; # <--- Use the NixOS store path (see below)
-        };
-      };
-    };
   };
 
   services = {

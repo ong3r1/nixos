@@ -52,14 +52,6 @@
         # shadow.enabled = true;
       };
 
-      ############################
-      ##  Visual Tweak: Animations
-      ############################
-      # Define a fast, sharp Bezier curve (for that snappy feel)
-      bezier = [
-        "easeOut, 0.0, 0.0, 0.58, 1.0"
-      ];
-
       # Configure specific animations
       animations = {
         enabled = true;
@@ -68,15 +60,15 @@
 
         # Windows: Make them fast (Speed 4 = 400ms) and use the custom curve
         "animation" = [
-          "windows, 1, 2, easeOut, popin 95%"
-          "windowsOut, 1, 2, easeOut, popin 95%"
+          "windows, 1, 1, default, popin 98%"
+          "windowsOut, 1, 1, default, popin 98%"
 
           # Workspaces: Use the same snappy curve but perhaps a different speed
-          "workspaces, 1, 2, easeOut"
+          "workspaces, 1, 1, default"
 
           # Fallback (optional, but good practice)
-          "border, 1, 10, default"
-          "fade, 1, 7, default"
+          "border, 1, 5, default"
+          "fade, 1, 5, default"
         ];
       };
 
@@ -152,6 +144,9 @@
           ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle"
           ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
           ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+          ", XF86KbdBrightnessUp, exec, brightnessctl --device='vendor::kbd_backlight' set +10%"
+          ", XF86KbdBrightnessDown, exec, brightnessctl --device='vendor::kbd_backlight' set 10%-"
+          ", XF86Keyboard, exec, brightnessctl --device='tpacpi::kbd_backlight' set +1"
         ]
         ++ (
           # Workspace bindings generation (Moved inside bind)
@@ -212,6 +207,7 @@
         "QT_QPA_PLATFORM=xcb keepassxc"
         "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE"
         "swayidle -w timeout 300 'hyprlock' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep 'hyprlock'"
+        "blueman-applet"
       ];
     };
   };
