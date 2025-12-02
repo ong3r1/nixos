@@ -146,7 +146,7 @@
           ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
           ", XF86KbdBrightnessUp, exec, brightnessctl --device='vendor::kbd_backlight' set +10%"
           ", XF86KbdBrightnessDown, exec, brightnessctl --device='vendor::kbd_backlight' set 10%-"
-          ", XF86Keyboard, exec, brightnessctl --device='tpacpi::kbd_backlight' set +1"
+          ", XF86Keyboard, exec, ~/.local/bin/kbd-brightness"
         ]
         ++ (
           # Workspace bindings generation (Moved inside bind)
