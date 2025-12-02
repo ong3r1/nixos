@@ -11,9 +11,6 @@ let
 in
 {
   imports = [
-    # fuzzel
-    ./fuzzel.nix
-
     # File manager
     ./file-manager.nix
 
@@ -97,7 +94,7 @@ in
       alejandra
       ashell
       bat
-      blueman
+      blueberry
       btop
       cargo
       clippy
