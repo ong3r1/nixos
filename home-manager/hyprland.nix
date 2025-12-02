@@ -80,7 +80,7 @@
         [
           # --- Terminal & Launcher ---
           "$mod, Return, exec, ghostty"
-          "$mod, d, exec, walker --show drun"
+          "$mod, d, exec, walker"
 
           # --- Window Management ---
           "$mod, q, killactive"

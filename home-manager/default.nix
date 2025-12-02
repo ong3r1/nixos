@@ -20,6 +20,9 @@ in
     # Ghostty
     ./ghostty.nix
 
+    # Qt
+    ./qt.nix
+
     # walker
     ./walker.nix
 
@@ -66,7 +69,6 @@ in
     sessionVariables = {
       XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
       BAT_THEME = "DarkNeon";
-      QT_QPA_PLATFORMTHEME = "qt5ct";
       XDG_DATA_DIRS = "${config.xdg.dataHome}/flatpak/exports/share:/var/lib/flatpak/exports/share:/etc/profiles/per-user/${config.home.username}/share:/usr/local/share:/usr/share";
       LIBVIRT_DEFAULT_URI = "qemu:///system";
       SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
@@ -99,6 +101,7 @@ in
       bat
       blueberry
       btop
+      calligraplan
       cargo
       clippy
       codespell
@@ -129,7 +132,6 @@ in
       just
       lazygit
       libnotify
-      libsForQt5.qt5ct
       libsecret
       lua-language-server
       mako
