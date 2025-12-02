@@ -2,16 +2,28 @@ local M = {}
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-vim.lsp._config.lua_ls.setup({
+vim.lsp.config("lua_ls", {
+	root_dir = function(fname)
+		-- Only treat ~/.config/nvim as workspace for LuaLS
+		local util = require("lspconfig.util")
+		return util.root_pattern(".git", "lua", "init.lua")(fname) or vim.fn.expand("~/.config/nvim")
+	end,
 	capabilities = capabilities,
 	settings = {
 		Lua = {
 			diagnostics = { globals = { "vim" } },
+			workspace = {
+				checkThirdParty = false,
+				library = {
+					vim.env.VIMRUNTIME,
+				},
+			},
 		},
 	},
 })
+vim.lsp.enable("lua_ls")
 
-vim.lsp._config.ts_ls.setup({
+vim.lsp.config("ts_ls", {
 	capabilities = capabilities,
 	settings = {
 		javascript = {
@@ -26,8 +38,9 @@ vim.lsp._config.ts_ls.setup({
 		},
 	},
 })
+vim.lsp.enable("ts_ls")
 
-vim.lsp._config.pyright.setup({
+vim.lsp.config("pyright", {
 	capabilities = capabilities,
 	settings = {
 		python = {
@@ -39,8 +52,9 @@ vim.lsp._config.pyright.setup({
 		},
 	},
 })
+vim.lsp.enable("pyright")
 
-vim.lsp._config.rust_analyzer.setup({
+vim.lsp.config("rust_analyzer", {
 	capabilities = capabilities,
 	settings = {
 		["rust-analyzer"] = {
@@ -49,8 +63,9 @@ vim.lsp._config.rust_analyzer.setup({
 		},
 	},
 })
+vim.lsp.enable("rust_analyzer")
 
-vim.lsp._config.gopls.setup({
+vim.lsp.config("gopls", {
 	capabilities = capabilities,
 	settings = {
 		gopls = {
@@ -62,5 +77,6 @@ vim.lsp._config.gopls.setup({
 		},
 	},
 })
+vim.lsp.enable("gopls")
 
 return M

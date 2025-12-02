@@ -13,8 +13,8 @@
     enable = true;
 
     theme = {
-      name = "Qogir-Dark";
-      package = pkgs.qogir-theme;
+      name = "Nordic";
+      package = pkgs.nordic;
     };
 
     iconTheme = {
