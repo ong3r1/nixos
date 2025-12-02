@@ -14,6 +14,8 @@
       env = [
         "HYPRCURSOR_THEME, Bibata-Modern-Ice"
         "HYPRCURSOR_SIZE, 26"
+        "QT_QPA_PLATFORMTHEME,qt6ct"
+        "QT_PLATFORMTHEME,qt6ct"
       ];
 
       ############################
