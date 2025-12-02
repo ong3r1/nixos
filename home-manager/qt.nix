@@ -21,20 +21,10 @@
     qt6ct
   ];
 
-  # 5. Set the icon theme inside the configuration file declaratively (optional but robust)
-  xdg.configFile."qt5ct/qt5ct.conf".text = lib.generators.toINI { } {
-    Appearance = {
-      # This MUST match the name of the installed icon theme package
-      icon_theme = "Qogir-Dark";
-    };
-  };
-
-  # Repeat for qt6ct if you have qt6 apps
-  xdg.configFile."qt6ct/qt6ct.conf".text = lib.generators.toINI { } {
-    Appearance = {
-      icon_theme = "Qogir-Dark";
-    };
-  };
+  home.file.".config/qt6ct/qt6ct.conf".enable = false;
+  home.file.".config/qt6ct".enable = false;
+  home.file.".config/qt5ct/qt5ct.conf".enable = false;
+  home.file.".config/qt5ct".enable = false;
 
   home.sessionVariables = {
     QT_QPA_PLATFORMTHEME = "qt5ct";

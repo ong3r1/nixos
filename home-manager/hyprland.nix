@@ -205,7 +205,7 @@
         "swaync"
         "nm-applet"
         "hyprpaper"
-        "waybar"
+        # "waybar"
         "ashell --config-path ~/.config/ashell/config.toml"
         "QT_QPA_PLATFORM=xcb keepassxc"
         "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE"
