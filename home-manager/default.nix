@@ -95,6 +95,7 @@ in
 
     packages = with pkgs; [
       alejandra
+      ashell
       bat
       blueman
       btop
