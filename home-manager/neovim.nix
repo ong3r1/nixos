@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{ pkgs, ... }: {
   home = {
     sessionVariables = {
       EDITOR = "nvim";
@@ -9,24 +8,24 @@
       # Lua
       stylua
 
-# Python
+      # Python
       black
       isort
 
-# Rust
-rustfmt
+      # Rust
+      rustfmt
 
-# Javascript/Typescript/Reacht/HTML/CSS/JSON
-prettierd
+      # Javascript/Typescript/Reacht/HTML/CSS/JSON
+      prettierd
 
-# Go
-go
-go-tools
+      # Go
+      go
+      go-tools
 
-# Nix
-  alejandra
-  nixfmt-rfc-style
-  nixpkgs-fmt
+      # Nix
+      alejandra
+      nixfmt-rfc-style
+      nixpkgs-fmt
     ];
 
     file = {

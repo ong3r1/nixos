@@ -3,16 +3,17 @@
 , ...
 }:
 let
-  # toggleWaybarScript = import ./toggle-waybar.nix {inherit pkgs;};
   myKeepassXC = pkgs.keepassxc;
   py = pkgs.python3Packages;
   kde = pkgs.kdePackages;
-  # uid = toString config.home.userInfo.uid;
 in
 {
   imports = [
     # File manager
     ./file-manager.nix
+
+    # Playwright
+    ./playwright.nix
 
     # GTK
     ./gtk.nix
@@ -40,9 +41,6 @@ in
 
     # Thunar
     ./thunar.nix
-
-    # Waybar
-    ./waybar.nix
 
     # Zoxide
     ./zoxide.nix
@@ -97,7 +95,6 @@ in
 
     packages = with pkgs; [
       alejandra
-      ashell
       bat
       blueberry
       btop
@@ -106,6 +103,7 @@ in
       clippy
       codespell
       curl
+      emote
       eza
       fd
       file-roller
@@ -125,7 +123,10 @@ in
       gotools
       golangci-lint
       gopls
+      httpie
+      httpie-desktop
       hyprlock
+      hyprpanel
       imagemagick
       inkscape
       jq
@@ -141,7 +142,7 @@ in
       ngrok
       nixd
       nixpkgs-fmt
-      nodejs
+      nodejs_24
       nodePackages.typescript-language-server
       nodePackages.vscode-langservers-extracted
       nodePackages.eslint_d
@@ -159,17 +160,13 @@ in
       python313
       qbittorrent
       ripgrep
-      rofi
-      rofimoji
       rust-analyzer
       rustc
       rustfmt
       sqlcheck
       sqls
-      taskjuggler
       thunderbird
       tmuxinator
-      tomato-c
       tor-browser
       tree
       typescript-language-server
@@ -177,22 +174,14 @@ in
       # Sway and Wayland related packages
       brightnessctl
       feh
-      grim
-      grimblast
-      networkmanagerapplet
       pamixer
       pavucontrol
       playerctl # Media control
-      slurp
       stylua
-      swappy
-      swaynotificationcenter # Notifications
       unrar
       unzip
-      watson
       wl-clipboard
       wtype
-      zenity
     ];
   };
 
@@ -232,10 +221,6 @@ in
     keepassxc = {
       enable = true;
     };
-
-    # waybar = {
-    #   enable = true;
-    # };
 
     git = {
       enable = true;

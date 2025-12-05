@@ -84,6 +84,9 @@
           "$mod, Return, exec, ghostty"
           "$mod, d, exec, walker"
 
+          # --- Emoji Picker ---
+          "$mod, e, exec, emote"
+
           # --- Window Management ---
           "$mod, q, killactive"
           "$mod Shift, space, togglefloating"
@@ -202,11 +205,9 @@
       ##  Autostart
       ############################
       exec-once = [
-        "swaync"
         "nm-applet"
         "hyprpaper"
-        # "waybar"
-        "ashell --config-path ~/.config/ashell/config.toml"
+        "hyprpanel"
         "QT_QPA_PLATFORM=xcb keepassxc"
         "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE"
         "swayidle -w timeout 300 'hyprlock' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep 'hyprlock'"
