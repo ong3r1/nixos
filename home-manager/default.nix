@@ -90,7 +90,7 @@ in
       };
 
       # Hyprpaper
-      ".config/hypr/hyprpaper.conf".source = ../dotfiles/hypr/hyprpaper.conf;
+      ".config/hypr/hyprpaper.conf".source = ../dotfiles/config/hypr/hyprpaper.conf;
     };
 
     packages = with pkgs; [
