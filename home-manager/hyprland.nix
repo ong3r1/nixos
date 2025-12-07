@@ -84,9 +84,6 @@
           "$mod, Return, exec, ghostty"
           "$mod, d, exec, walker"
 
-          # --- Emoji Picker ---
-          "$mod, e, exec, emote"
-
           # --- Window Management ---
           "$mod, q, killactive"
           "$mod Shift, space, togglefloating"
@@ -212,19 +209,6 @@
         "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE"
         "swayidle -w timeout 300 'hyprlock' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep 'hyprlock'"
         "blueman-applet"
-      ];
-    };
-  };
-
-  ############################
-  ## Wallpaper (Hyprpaper)
-  ############################
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      preload = [ "~/Pictures/wallpapers/nix-wallpaper-nineish-dark-gray.png" ];
-      wallpaper = [
-        "eDP-1,~/Pictures/wallpapers/nix-wallpaper-nineish-dark-gray.png"
       ];
     };
   };

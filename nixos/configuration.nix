@@ -149,11 +149,11 @@ in
       };
     };
 
-    # Enable docker
-    docker = {
+    # Enable podman
+    podman = {
       enable = true;
-      enableOnBoot = true;
-      autoPrune.enable = true; # clears dangling images automatically
+      # This creates the default bridge network Podman needs
+      defaultNetwork.settings.dns_enabled = true;
     };
   };
 
@@ -266,7 +266,9 @@ in
   # Sway
   programs = {
     hyprland.enable = true;
-    zsh.enable = true;
+    zsh = {
+      enable = true;
+    };
     virt-manager.enable = true;
     gnupg = {
       agent = {

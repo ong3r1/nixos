@@ -12,9 +12,6 @@ in
     # File manager
     ./file-manager.nix
 
-    # Playwright
-    ./playwright.nix
-
     # GTK
     ./gtk.nix
 
@@ -91,6 +88,9 @@ in
         source = ../dotfiles/config/swappy;
         recursive = true;
       };
+
+      # Hyprpaper
+      ".config/hypr/hyprpaper.conf".source = ../dotfiles/hypr/hyprpaper.conf;
     };
 
     packages = with pkgs; [
@@ -103,6 +103,7 @@ in
       clippy
       codespell
       curl
+      docker-compose
       emote
       eza
       fd
@@ -127,10 +128,13 @@ in
       httpie-desktop
       hyprlock
       hyprpanel
+      hyprpaper
       imagemagick
       inkscape
       jq
       just
+      kind
+      kubectl
       lazygit
       libnotify
       libsecret
