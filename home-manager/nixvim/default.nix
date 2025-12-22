@@ -4,10 +4,13 @@
 }: {
   programs.nixvim = {
     imports = [
-      ./opts.nix
-      ./keymaps.nix
-      ./plugins.nix
+      ./colourschemes.nix
       ./extra-config.nix
+      ./extra-files.nix
+      ./globals.nix
+      ./keymaps.nix
+      ./opts.nix
+      ./plugins.nix
     ];
     enable = true;
   };

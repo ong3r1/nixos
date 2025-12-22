@@ -1,7 +1,5 @@
-{ ... }:
-
-{
+{ ... }: {
   extraConfigLua = ''
-    require("config.colourscheme")
+    require("telescope").load_extension("persisted")
   '';
 }

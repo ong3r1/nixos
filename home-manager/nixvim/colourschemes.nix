@@ -1,4 +1,4 @@
-{ ... }
+{ ... }:
 
 {
   colorschemes.base16 = {
