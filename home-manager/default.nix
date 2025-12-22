@@ -25,7 +25,10 @@ in
     ./walker.nix
 
     # Neovim
-    ./neovim.nix
+    # ./neovim.nix
+
+    # Nixvim
+    ./nixvim.nix
 
     # Starship
     ./starship.nix
@@ -124,6 +127,8 @@ in
       gotools
       golangci-lint
       gopls
+      grimblast
+      gromit-mpx
       httpie
       httpie-desktop
       hyprlock

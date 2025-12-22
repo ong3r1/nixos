@@ -3,14 +3,14 @@
 
   inputs = {
     # Flakehub Nixpkgs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Nixvim
-    nixvim.url = "github:nix-community/nixvim/nixos-25.05";
+    nixvim.url = "github:nix-community/nixvim/nixos-25.11";
 
     # Sops
     sops-nix.url = "github:Mic92/sops-nix";
@@ -92,6 +92,9 @@
                 home-manager.users.ong3r1 = {
                   imports = [
                     ./home-manager
+
+                    # Nixvim
+                    inputs.nixvim.homeModules.nixvim
                   ];
                 };
                 home-manager.backupFileExtension = "backup-$(date +'%Y-%m-%d')";
@@ -108,8 +111,6 @@
       #     pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
       #     extraSpecialArgs = {inherit inputs outputs;};
       #     modules = [
-      #       # Nixvim
-      #       inputs.nixvim.homeManagerModules.nixvim
       #       # > Our main home-manager configuration file <
       #       ./home-manager/home.nix
       #     ];

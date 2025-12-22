@@ -174,8 +174,9 @@
       windowrulev2 = [
         "workspace 3, class:^(obsidian)$"
         "workspace 2, class:^(firefox)$"
-        "workspace 1, class:^(ghostty)$"
+        "workspace 1, class:^(com.mitchellh.ghostty)$"
         "workspace 4, class:^(thunderbird)$"
+        "noblur, class:Gromit-mpx"
       ];
 
       ############################
