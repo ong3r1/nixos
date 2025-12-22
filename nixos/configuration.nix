@@ -135,17 +135,6 @@ in
       qemu = {
         # Enable the swtpm service for software TPM emulation.
         swtpm.enable = true;
-        # Enable OVMF with secure boot and TPM support.
-        # This is crucial for VMs that require a UEFI environment, like Windows 11.
-        ovmf = {
-          enable = true;
-          packages = [
-            (pkgs.OVMFFull.override {
-              secureBoot = true;
-              tpmSupport = true;
-            })
-          ];
-        };
       };
     };
 
@@ -284,9 +273,6 @@ in
     # Ensure DBus is enabled (critical)
     dbus.enable = true;
 
-    #udev
-    udev.packages = [ pkgs.android-udev-rules ];
-
     flatpak = {
       enable = true;
     };
@@ -297,7 +283,7 @@ in
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd hyprland";
+          command = "${pkgs.tuigreet}/bin/tuigreet --cmd hyprland";
           user = "greeter";
         };
       };

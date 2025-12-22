@@ -28,7 +28,7 @@ in
     # ./neovim.nix
 
     # Nixvim
-    ./nixvim.nix
+    ./nixvim
 
     # Starship
     ./starship.nix
@@ -233,14 +233,14 @@ in
 
     git = {
       enable = true;
-      userName = "ong3r1";
-      userEmail = "binmawe@gmail.com";
       signing = {
         key = "B3E6DF108565F22C"; # Same GPG key ID
         signByDefault = true;
       };
       # Optional: Make Git use gpg-agent for signing
-      extraConfig = {
+      settings = {
+        user.name = "ong3r1";
+        user.email = "binmawe@gmail.com";
         commit.gpgsign = true;
         gpg.program = "gpg"; # Ensure it uses the system's gpg
       };
