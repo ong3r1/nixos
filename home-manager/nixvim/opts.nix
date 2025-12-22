@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{ ... }: {
   opts = {
     number = true;
     clipboard = "unnamedplus";
@@ -15,6 +13,16 @@
     background = "dark"; # or "light" for light mode
     wrap = false;
     cursorline = true;
+
+    # Enable persistent undo
+    undofile = true;
+
+    # Set where undo files are stored
+    # Using __raw ensures Lua handles the path expansion correctly
+    undodir = { __raw = "vim.fs.normalize('~/.local/share/nvim/undo')"; };
+
+    # How many levels of undo to keep
+    undolevels = 10000;
+    undoreload = 10000;
   };
 }
-

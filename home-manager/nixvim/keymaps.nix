@@ -3,7 +3,7 @@
     {
       mode = "n";
       key = "<leader>w";
-      action = ":w<CR>";
+      action = ":SessionSave<CR>";
       options.desc = "Save file";
     }
     {
@@ -17,6 +17,20 @@
       key = "<leader>?";
       action = "<cmd>lua require('which-key').show({ global = false })<CR>";
       options.desc = "Buffer Local Keymaps (which-key)";
+    }
+    {
+      mode = "n";
+      key = "<leader>h";
+      action = ":noh<CR>";
+      options.desc = "Remove Highlighting";
+    }
+
+    # Telescope
+    {
+      mode = "n";
+      key = "<leader>S";
+      action = ":Telescope persisted<CR>";
+      options.desc = "Restore Session";
     }
 
     # SNACKS

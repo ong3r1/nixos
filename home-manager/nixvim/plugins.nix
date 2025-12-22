@@ -49,6 +49,22 @@
           };
         };
 
+        emmet_ls = {
+          enable = true;
+          settings = {
+            jsx = {
+              allowNonHtmlTags = true;
+            };
+          };
+          filetypes = [
+            "html"
+            "css"
+            "scss"
+            "javascriptreact"
+            "typescriptreact"
+          ];
+        };
+
         pyright = {
           enable = true;
           settings = {
@@ -212,16 +228,6 @@
           "$HOME"
           "/tmp"
         ];
-        should_autosave = ''
-          function()
-            return vim.fn.argc() == 0
-          end
-        '';
-        should_autoload = ''
-          function()
-            return vim.fn.argc() == 0
-          end
-        '';
       };
     };
 
@@ -235,6 +241,40 @@
 
       # sources you want to include
       settings = {
+        mapping = {
+          "<Tab>" = ''
+            require("cmp").mapping(function(fallback)
+              local cmp = require("cmp")
+              local luasnip = require("luasnip")
+
+              if cmp.visible() then
+                cmp.select_next_item()
+              elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+              elseif vim.fn.col('.') > 1
+                and vim.fn.getline('.'):sub(vim.fn.col('.') - 1, vim.fn.col('.') - 1):match("%s") == nil then
+                cmp.complete()
+              else
+                fallback()
+              end
+            end, { "i", "s" })
+          '';
+
+          "<S-Tab>" = ''
+            require("cmp").mapping(function(fallback)
+              local cmp = require("cmp")
+              local luasnip = require("luasnip")
+
+              if cmp.visible() then
+                cmp.select_prev_item()
+              elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+              else
+                fallback()
+              end
+            end, { "i", "s" })
+          '';
+        };
         sources = [
           { name = "nvim_lsp"; }
           { name = "luasnip"; }
