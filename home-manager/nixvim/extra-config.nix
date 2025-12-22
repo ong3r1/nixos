@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  extraConfigLua = ''
+    require("config.colourscheme")
+  '';
+}

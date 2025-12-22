@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  programs.nixvim.opts = {
+  opts = {
     number = true;
     relativenumber = true;
     expandtab = true;

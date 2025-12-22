@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  programs.nixvim.keymaps = [
+  keymaps = [
     {
       mode = "n";
       key = "<leader>w";
@@ -14,5 +14,11 @@
       action = ":q<CR>";
       options.desc = "Quit";
     }
+{
+          mode = "n";
+          key = "<leader>?";
+          action = "<cmd>lua require('which-key').show({ global = false })<CR>";
+          options.desc = "Buffer Local Keymaps (which-key)";
+        }
   ];
 }
