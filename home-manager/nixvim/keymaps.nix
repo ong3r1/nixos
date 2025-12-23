@@ -217,5 +217,48 @@
       action = "<cmd>lua vim.diagnostic.open_float()<CR>";
       options.desc = "Show Diagnostic Float";
     }
+    # Other
+    {
+      mode = "n";
+      key = "<leader>z";
+      action = "<cmd>lua require(\"snacks\").zen()<CR>";
+      options.desc = "Toggle Zen Mode";
+    }
+    {
+      mode = "n";
+      key = "<leader>Z";
+      action = "<cmd>lua require(\"snacks\").zen.zoom()<CR>";
+      options.desc = "Toggle Zoom";
+    }
+    {
+      mode = "n";
+      key = "<leader>nh";
+      action = "<cmd>lua require(\"snacks\").notifier.show_history()<CR>";
+      options.desc = "Notification History";
+    }
+    {
+      mode = "n";
+      key = "<leader>bd";
+      action = "<cmd>lua require(\"snacks\").bufdelete()<CR>";
+      options.desc = "Delete Buffer";
+    }
+    {
+      mode = "n";
+      key = "<leader>gg";
+      action = "<cmd>lua require(\"snacks\").lazygit()<CR>";
+      options.desc = "Lazygit";
+    }
+    {
+      mode = "n";
+      key = "<leader>un";
+      action = "<cmd>lua require(\"snacks\").notifier.hide()<CR>";
+      options.desc = "Dismiss All Notifications";
+    }
+    {
+      mode = "n";
+      key = "<c-_>";
+      action = "<cmd>lua require(\"snacks\").terminal()<CR>";
+      options.desc = "Toggle Terminal";
+    }
   ];
 }

@@ -1,7 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   programs.tmux = {
     enable = true;
@@ -34,6 +33,34 @@
       # Bell
       set -g visual-bell on
       set -g bell-action any
+
+      # Colours
+      # Status bar
+      set -g status-style fg=colour7,bg=colour0
+
+      # Left side (session name)
+      set -g status-left-style fg=colour4,bg=colour0
+      set -g status-left "#S "
+
+      # Right side
+      set -g status-right-style fg=colour6,bg=colour0
+      set -g status-right "%Y-%m-%d %H:%M"
+
+      # Active window
+      set -g window-status-current-style fg=colour0,bg=colour4
+      set -g window-status-current-format " #I:#W "
+
+      # Inactive windows
+      set -g window-status-style fg=colour7,bg=colour0
+      set -g window-status-format " #I:#W "
+
+      # Pane borders
+      set -g pane-border-style fg=colour8
+      set -g pane-active-border-style fg=colour4
+
+      # Messages
+      set -g message-style fg=colour0,bg=colour3
+
     '';
   };
 }

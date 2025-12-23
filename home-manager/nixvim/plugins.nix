@@ -10,6 +10,10 @@
       enable = true;
     };
 
+    friendly-snippets = {
+      enable = true;
+    };
+
     lsp = {
       enable = true;
 
@@ -259,7 +263,12 @@
               end
             end, { "i", "s" })
           '';
-
+          "<CR>" = ''
+            require("cmp").mapping.confirm({
+              behavior = require("cmp").ConfirmBehavior.Replace,
+              select = true,
+            })
+          '';
           "<S-Tab>" = ''
             require("cmp").mapping(function(fallback)
               local cmp = require("cmp")
@@ -283,6 +292,11 @@
           { name = "nvim_lua"; }
           { name = "emmet_vim"; }
         ];
+        snippet.expand = ''
+          function(args)
+            require("luasnip").lsp_expand(args.body)
+          end
+        '';
       };
     };
   };
