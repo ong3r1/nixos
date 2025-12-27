@@ -71,6 +71,7 @@ in
         flake-registry = "";
         # Workaround for https://github.com/NixOS/nix/issues/9574
         # nix-path = config.nix.nixPath;
+        auto-optimise-store = true;
       };
       # Opinionated: disable channels
       channel.enable = true;
@@ -146,10 +147,6 @@ in
     };
   };
 
-  networking.extraHosts = ''
-    127.0.0.1 server.local
-  '';
-
   boot.kernel.sysctl = {
     "fs.epoll.max_user_watches" = 1048576;
     "kernel.unprivileged_userns_clone" = 1;
@@ -188,6 +185,10 @@ in
     networkmanager = {
       enable = true;
     };
+
+    extraHosts = ''
+      127.0.0.1 server.local
+    '';
   };
 
   # Set your time zone.
@@ -272,6 +273,10 @@ in
   services = {
     # Ensure DBus is enabled (critical)
     dbus.enable = true;
+
+    journald.extraConfig = ''
+      SystemMaxUse=1G
+    '';
 
     flatpak = {
       enable = true;

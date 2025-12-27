@@ -189,6 +189,7 @@ in
       stylua
       unrar
       unzip
+      vivaldi
       wl-clipboard
       wtype
     ];
