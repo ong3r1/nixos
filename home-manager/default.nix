@@ -53,32 +53,29 @@ in
     autostart = {
       enable = true;
 
-      entries = {
-        keepassxc = {
-          name = "KeepassXC";
-          exec = "QT_QPA_PLATFORM=xcb keepassxc";
-          onlyShowIn = [ "Hyprland" ];
-        };
-
-        nm-applet = {
-          name = "Network Manager Applet";
-          exec = "nm-applet --indicator";
-          onlyShowIn = [ "Hyprland" ];
-        };
-
-        blueberry = {
-          name = "Blueberry";
-          exec = "blueberry-tray";
-          onlyShowIn = [ "Hyprland" ];
-        };
-      };
+      entries = [
+        (pkgs.writeText "blueberry.desktop" ''
+          [Desktop Entry]
+          Type=Application
+          Name=Blueberry Tray
+          Exec=${pkgs.blueberry}/bin/blueberry-tray
+          OnlyShowIn=Hyprland;
+        '')
+        (pkgs.writeText "keepassxc.desktop" ''
+          [Desktop Entry]
+          Type=Application
+          Name=Keepass XC
+          Exec=${pkgs.keepassxc}/bin/keepassxc --minimised
+          OnlyShowIn=Hyprland;
+        '')
+      ];
     };
   };
 
   home = {
     username = "ong3r1";
     homeDirectory = "/home/ong3r1";
-    stateVersion = "25.05"; # Please read the comment before changing.
+    stateVersion = "25.11"; # Please read the comment before changing.
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
     # introduces backwards incompatible changes.
@@ -118,8 +115,17 @@ in
         recursive = true;
       };
 
-      # Hyprpaper
-      ".config/hypr/hyprpaper.conf".source = ../dotfiles/config/hypr/hyprpaper.conf;
+      # Hyprland
+      ".config/hypr" = {
+        source = ../dotfiles/config/hypr;
+        recursive = true;
+      };
+
+      # Systemd
+      ".config/systemd" = {
+        source = ../dotfiles/config/systemd;
+        recursive = true;
+      };
     };
 
     packages = with pkgs; [

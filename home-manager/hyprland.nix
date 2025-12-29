@@ -205,6 +205,7 @@
       exec-once = [
         "hyprpaper"
         "hyprpanel"
+        "hypridle"
         "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE"
       ];
     };
@@ -214,4 +215,9 @@
   ## Lock screen
   ############################
   programs.hyprlock.enable = true;
+
+  ############################
+  ## Idling
+  ############################
+  services.hypridle.enable = true;
 }

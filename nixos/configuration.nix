@@ -161,6 +161,12 @@ in
   xdg.portal.enable = true;
 
   systemd = {
+    user = {
+      services = {
+        "xdg-desktop-portal".enable = true;
+        "xdg-desktop-portal-wlr".enable = true;
+      };
+    };
     services = {
       "getty@tty1".enable = false;
       flatpak-repo = {
@@ -225,6 +231,8 @@ in
       sops
       swtpm
       waybar
+      xdg-desktop-portal
+      xdg-desktop-portal-wlr
     ];
     etc = {
       "gnupg/gpg-agent.conf".text = lib.mkForce ''
