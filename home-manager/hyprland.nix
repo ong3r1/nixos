@@ -127,7 +127,7 @@
           "$mod Ctrl, Print, exec, grimblast copy active"
 
           # --- App Shortcuts ---
-          "$mod, i, exec, firefox"
+          "$mod, i, exec, vivaldi"
           "$mod, o, exec, obsidian"
           "$mod, t, exec, thunderbird"
           "$mod, p, exec, thunar"
@@ -173,7 +173,7 @@
       ############################
       windowrulev2 = [
         "workspace 3, class:^(obsidian)$"
-        "workspace 2, class:^(firefox)$"
+        "workspace 2, class:^(vivaldi)$"
         "workspace 1, class:^(com.mitchellh.ghostty)$"
         "workspace 4, class:^(thunderbird)$"
         "noblur, class:Gromit-mpx"
@@ -203,13 +203,9 @@
       ##  Autostart
       ############################
       exec-once = [
-        "nm-applet"
         "hyprpaper"
         "hyprpanel"
-        "QT_QPA_PLATFORM=xcb keepassxc"
         "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE"
-        "swayidle -w timeout 300 'hyprlock' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' before-sleep 'hyprlock'"
-        "blueman-applet"
       ];
     };
   };

@@ -49,6 +49,32 @@ in
     ./zsh.nix
   ];
 
+  xdg = {
+    autostart = {
+      enable = true;
+
+      entries = {
+        keepassxc = {
+          name = "KeepassXC";
+          exec = "QT_QPA_PLATFORM=xcb keepassxc";
+          onlyShowIn = [ "Hyprland" ];
+        };
+
+        nm-applet = {
+          name = "Network Manager Applet";
+          exec = "nm-applet --indicator";
+          onlyShowIn = [ "Hyprland" ];
+        };
+
+        blueberry = {
+          name = "Blueberry";
+          exec = "blueberry-tray";
+          onlyShowIn = [ "Hyprland" ];
+        };
+      };
+    };
+  };
+
   home = {
     username = "ong3r1";
     homeDirectory = "/home/ong3r1";
@@ -131,6 +157,7 @@ in
       gromit-mpx
       httpie
       httpie-desktop
+      hypridle
       hyprlock
       hyprpanel
       hyprpaper

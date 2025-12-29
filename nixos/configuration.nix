@@ -293,9 +293,11 @@ in
         };
       };
     };
+
     printing = {
       enable = true;
     };
+
     pipewire = {
       enable = true;
       wireplumber.enable = true; # Or media-session.enable = true; if still using that older one
@@ -309,6 +311,7 @@ in
       # no need to redefine it in your config for now)
       #media-session.enable = true;
     };
+
     openssh = {
       enable = true;
       settings = {
@@ -319,6 +322,7 @@ in
         PasswordAuthentication = false;
       };
     };
+
     libinput = {
       enable = true;
     };
@@ -336,6 +340,7 @@ in
   security = {
     polkit.enable = true;
     rtkit.enable = true;
+    pam.services.login.enableGnomeKeyring = true;
   };
 
   users.users = {
