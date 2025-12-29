@@ -24,9 +24,6 @@ in
     # walker
     ./walker.nix
 
-    # Neovim
-    # ./neovim.nix
-
     # Nixvim
     ./nixvim
 
@@ -42,35 +39,15 @@ in
     # Thunar
     ./thunar.nix
 
+    # vivaldi
+    ./vivaldi.nix
+
     # Zoxide
     ./zoxide.nix
 
     # ZSH
     ./zsh.nix
   ];
-
-  xdg = {
-    autostart = {
-      enable = true;
-
-      entries = [
-        (pkgs.writeText "blueberry.desktop" ''
-          [Desktop Entry]
-          Type=Application
-          Name=Blueberry Tray
-          Exec=${pkgs.blueberry}/bin/blueberry-tray
-          OnlyShowIn=Hyprland;
-        '')
-        (pkgs.writeText "keepassxc.desktop" ''
-          [Desktop Entry]
-          Type=Application
-          Name=Keepass XC
-          Exec=${pkgs.keepassxc}/bin/keepassxc --minimised
-          OnlyShowIn=Hyprland;
-        '')
-      ];
-    };
-  };
 
   home = {
     username = "ong3r1";
@@ -118,12 +95,6 @@ in
       # Hyprland
       ".config/hypr" = {
         source = ../dotfiles/config/hypr;
-        recursive = true;
-      };
-
-      # Systemd
-      ".config/systemd" = {
-        source = ../dotfiles/config/systemd;
         recursive = true;
       };
     };
@@ -205,6 +176,7 @@ in
       rust-analyzer
       rustc
       rustfmt
+      seahorse
       sqlcheck
       sqls
       thunderbird
@@ -222,7 +194,6 @@ in
       stylua
       unrar
       unzip
-      vivaldi
       wl-clipboard
       wtype
     ];
@@ -291,6 +262,10 @@ in
       enableSshSupport = true;
       defaultCacheTtl = 1800;
       maxCacheTtl = 7200;
+    };
+    gnome-keyring = {
+      enable = true;
+      components = [ "secrets" ];
     };
   };
 }

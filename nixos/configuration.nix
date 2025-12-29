@@ -158,15 +158,18 @@ in
     options = [ "defaults" ];
   };
 
-  xdg.portal.enable = true;
+  xdg = {
+    portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+      ];
+    };
+  };
 
   systemd = {
-    user = {
-      services = {
-        "xdg-desktop-portal".enable = true;
-        "xdg-desktop-portal-wlr".enable = true;
-      };
-    };
     services = {
       "getty@tty1".enable = false;
       flatpak-repo = {
@@ -231,8 +234,6 @@ in
       sops
       swtpm
       waybar
-      xdg-desktop-portal
-      xdg-desktop-portal-wlr
     ];
     etc = {
       "gnupg/gpg-agent.conf".text = lib.mkForce ''

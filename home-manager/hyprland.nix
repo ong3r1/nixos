@@ -203,6 +203,8 @@
       ##  Autostart
       ############################
       exec-once = [
+        "${pkgs.blueberry}/bin/blueberry-tray"
+        "${pkgs.keepassxc}/bin/keepassxc --minimized"
         "hyprpaper"
         "hyprpanel"
         "hypridle"
