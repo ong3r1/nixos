@@ -179,6 +179,7 @@ in
       seahorse
       sqlcheck
       sqls
+      sxiv
       thunderbird
       tmuxinator
       tor-browser
@@ -187,7 +188,6 @@ in
       vscode
       # Sway and Wayland related packages
       brightnessctl
-      feh
       pamixer
       pavucontrol
       playerctl # Media control
