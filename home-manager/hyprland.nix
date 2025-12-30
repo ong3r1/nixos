@@ -107,10 +107,10 @@
           "$mod Shift, j, movewindow, d"
           "$mod Shift, k, movewindow, u"
           "$mod Shift, l, movewindow, r" # This now works (conflict removed)
-          "$mod Shift, Left, movewindow, l"
-          "$mod Shift, Down, movewindow, d"
-          "$mod Shift, Up, movewindow, u"
-          "$mod Shift, Right, movewindow, r"
+          "$mod Shift, Left, moveintogroup, l"
+          "$mod Shift, Down, moveintogroup, d"
+          "$mod Shift, Up, moveintogroup, u"
+          "$mod Shift, Right, moveintogroup, r"
 
           # --- Layouts ---
           # Toggle split direction (Horizontal/Vertical)
@@ -173,7 +173,7 @@
       ############################
       windowrulev2 = [
         "workspace 3, class:^(obsidian)$"
-        "workspace 2, class:^(vivaldi)$"
+        "workspace 2, class:Vivaldi"
         "workspace 1, class:^(com.mitchellh.ghostty)$"
         "workspace 4, class:^(thunderbird)$"
         "noblur, class:Gromit-mpx"
