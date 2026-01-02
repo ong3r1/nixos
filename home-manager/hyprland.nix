@@ -122,9 +122,9 @@
           "$mod, b, changegroupactive, b" # Switch to prev window in group
 
           # --- Screenshots ---
-          ", Print, exec, grimblast copy area"
-          "$mod Shift, Print, exec, grimblast copy screen"
-          "$mod Ctrl, Print, exec, grimblast copy active"
+          ", Print, exec, grimblast copysave area /home/ong3r1/Pictures/Screenshots/"
+          "$mod Shift, Print, exec, grimblast copysave screen /home/ong3r1/Pictures/Screenshots/"
+          "$mod Ctrl, Print, exec, grimblast copysave active /home/ong3r1/Pictures/Screenshots/"
 
           # --- App Shortcuts ---
           "$mod, i, exec, vivaldi"

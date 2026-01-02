@@ -8,8 +8,9 @@
 , ...
 }:
 let
-  # Use a file path relative to your config file
-  myWallpaper = ../images/nix-wallpaper-simple-dark-gray_bottom.png;
+  custom-astronaut = pkgs.sddm-astronaut.override {
+    embeddedTheme = "purple_leaves"; # Or your preferred variant
+  };
 in
 {
   # You can import other NixOS modules here
@@ -293,14 +294,17 @@ in
 
     tailscale.enable = true;
 
-    greetd = {
+    displayManager.sddm = {
       enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --cmd hyprland";
-          user = "greeter";
-        };
-      };
+      wayland.enable = true;
+      theme = "${custom-astronaut}/share/sddm/themes/sddm-astronaut-theme";
+      package = pkgs.kdePackages.sddm;
+      extraPackages = [
+        custom-astronaut
+        pkgs.kdePackages.qtmultimedia
+        pkgs.kdePackages.qtsvg
+        pkgs.kdePackages.qt5compat # Needed for some animations/effects
+      ];
     };
 
     printing = {
@@ -335,6 +339,39 @@ in
     libinput = {
       enable = true;
     };
+
+    # 1. Disable the conflicting default daemon
+    power-profiles-daemon.enable = false;
+
+    # 2. Enable thermald (Essential for Intel CPUs to prevent over-throttling)
+    thermald.enable = true;
+
+    throttled.enable = true;
+
+    tlp = {
+      enable = true;
+      settings = {
+        # CPU Governor
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+        # Energy Performance Preference (EPP)
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+        # Battery Charge Thresholds (ThinkPad specific)
+        # Starts charging at 40%, stops at 80% to prevent wear
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 80;
+
+        # Disable Bluetooth at boot (as we discussed)
+        DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
+
+        # Keep the laptop cool and quiet on battery
+        CPU_BOOST_ON_BAT = 0;
+        CPU_HWP_DYN_BOOST_ON_BAT = 0;
+      };
+    };
   };
 
   # Configure keymap in X11
@@ -342,6 +379,13 @@ in
     bluetooth = {
       enable = true;
       powerOnBoot = false;
+      settings = {
+        General = {
+          # This ensures that bluez doesn't auto-enable every adapter it finds
+          # which can sometimes override the powerOnBoot setting.
+          AutoEnable = false;
+        };
+      };
     };
     graphics = {
       enable = true;

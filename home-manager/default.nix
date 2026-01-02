@@ -110,6 +110,7 @@ in
       codespell
       curl
       docker-compose
+      eb-garamond
       emote
       eza
       fd
@@ -163,6 +164,7 @@ in
       nodePackages.prettier
       obsidian
       oh-my-zsh
+      orbitron
       p7zip
       pgformatter
       prettierd
@@ -198,6 +200,8 @@ in
       wtype
     ];
   };
+
+  fonts.fontconfig.enable = true;
 
   programs = {
     # FZF integration with Zsh
