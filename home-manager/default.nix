@@ -132,6 +132,7 @@ in
       gopls
       grimblast
       gromit-mpx
+      gthumb
       httpie
       httpie-desktop
       hypridle
@@ -179,7 +180,6 @@ in
       seahorse
       sqlcheck
       sqls
-      sxiv
       thunderbird
       tmuxinator
       tor-browser
