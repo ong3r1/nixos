@@ -346,18 +346,21 @@ in
     # 2. Enable thermald (Essential for Intel CPUs to prevent over-throttling)
     thermald.enable = true;
 
-    throttled.enable = true;
+    throttled.enable = false; # update this when we get a battery
 
     tlp = {
       enable = true;
       settings = {
         # CPU Governor
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_AC = "powersave"; # Update this to `performance` when we get a battery
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
         # Energy Performance Preference (EPP)
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power"; # Update this to `performance` when we get a battery
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+        # Update this when we get a battery
+        CPU_BOOST_ON_AC = 0;
 
         # Battery Charge Thresholds (ThinkPad specific)
         # Starts charging at 40%, stops at 80% to prevent wear

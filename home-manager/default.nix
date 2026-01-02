@@ -49,6 +49,21 @@ in
     ./zsh.nix
   ];
 
+  xdg = {
+    enable = true;
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "image/jpeg" = [ "org.gnome.gThumb.desktop" ];
+        "image/png" = [ "org.gnome.gThumb.desktop" ];
+        "image/gif" = [ "org.gnome.gThumb.desktop" ];
+        "image/webp" = [ "org.gnome.gThumb.desktop" ];
+        "image/tiff" = [ "org.gnome.gThumb.desktop" ];
+        "image/bmp" = [ "org.gnome.gThumb.desktop" ];
+      };
+    };
+  };
+
   home = {
     username = "ong3r1";
     homeDirectory = "/home/ong3r1";
