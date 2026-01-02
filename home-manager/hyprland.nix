@@ -35,7 +35,7 @@
         "col.inactive_border" = "rgb(444444)";
 
         # --- NEW GAP SETTINGS ---
-        gaps_in = 4; # Inner gap (between windows)
+        gaps_in = 2; # Inner gap (between windows)
         gaps_out = 8; # Outer gap (to monitor edge)
       };
 

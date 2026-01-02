@@ -339,7 +339,10 @@ in
 
   # Configure keymap in X11
   hardware = {
-    bluetooth.enable = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+    };
     graphics = {
       enable = true;
     };
