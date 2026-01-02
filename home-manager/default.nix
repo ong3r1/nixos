@@ -60,6 +60,14 @@ in
         "image/webp" = [ "org.gnome.gThumb.desktop" ];
         "image/tiff" = [ "org.gnome.gThumb.desktop" ];
         "image/bmp" = [ "org.gnome.gThumb.desktop" ];
+        # Web protocols
+        "text/html" = [ "vivaldi-stable.desktop" ];
+        "x-scheme-handler/http" = [ "vivaldi-stable.desktop" ];
+        "x-scheme-handler/https" = [ "vivaldi-stable.desktop" ];
+        "x-scheme-handler/about" = [ "vivaldi-stable.desktop" ];
+        "x-scheme-handler/unknown" = [ "vivaldi-stable.desktop" ];
+
+        "application/pdf" = [ "org.pwmt.zathura.desktop" ];
       };
     };
   };
@@ -86,6 +94,7 @@ in
       LIBVIRT_DEFAULT_URI = "qemu:///system";
       SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
       NIXOS_OZONE_WL = "1";
+      BROWSER = "vivaldi-stable";
     };
 
     file = {

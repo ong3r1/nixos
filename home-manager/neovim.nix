@@ -27,18 +27,5 @@
       nixfmt-rfc-style
       nixpkgs-fmt
     ];
-
-    file = {
-      # Config
-      ".config/nvim" = {
-        source = ../dotfiles/config/nvim;
-        recursive = true;
-      };
-    };
-  };
-
-  programs.neovim = {
-    defaultEditor = true;
-    enable = true;
   };
 }
