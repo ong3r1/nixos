@@ -1,10 +1,34 @@
 { config, ... }: {
   plugins = {
-    telescope = {
-      enable = true;
-    };
+    telescope.enable = true;
+
     gitsigns.enable = true;
+
     web-devicons.enable = true;
+
+    treesitter = {
+      enable = true;
+      settings = {
+        ensureInstalled = [
+          "php"
+          "blade"
+          "html"
+          "css"
+          "javascript"
+          "jsx"
+          "typescript"
+          "tsx"
+          "lua"
+          "python"
+          "rust"
+          "go"
+          "markdown"
+          "nix"
+        ];
+        highlight.enable = true;
+        indent.enable = true;
+      };
+    };
 
     luasnip = {
       enable = true;
@@ -37,6 +61,10 @@
           };
         };
 
+        phpactor = {
+          enable = true;
+        };
+
         ts_ls = {
           enable = true;
           settings = {
@@ -64,6 +92,7 @@
             "html"
             "css"
             "scss"
+            "php"
             "javascriptreact"
             "typescriptreact"
           ];

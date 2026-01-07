@@ -234,7 +234,6 @@ in
       qemu_kvm
       sops
       swtpm
-      waybar
     ];
     etc = {
       "gnupg/gpg-agent.conf".text = lib.mkForce ''
@@ -431,7 +430,5 @@ in
     };
   };
 
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
