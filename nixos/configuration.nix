@@ -269,6 +269,19 @@ in
       enable = true;
     };
     virt-manager.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        stdenv.cc.cc.lib
+        zlib
+        fuse3
+        icu
+        nss
+        openssl
+        curl
+        expat
+      ];
+    };
     gnupg = {
       agent = {
         enable = true;

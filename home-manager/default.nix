@@ -168,6 +168,7 @@ in
       inkscape
       jq
       just
+      kde.kdenlive
       kind
       kubectl
       lazygit
