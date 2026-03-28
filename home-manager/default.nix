@@ -4,7 +4,7 @@
 }:
 let
   myKeepassXC = pkgs.keepassxc;
-  py = pkgs.python3Packages;
+  py = pkgs.python313Packages;
   kde = pkgs.kdePackages;
 in
 {
@@ -138,6 +138,7 @@ in
       emote
       eza
       fd
+      ffmpeg-full
       file-roller
       foliate
       font-awesome
@@ -196,6 +197,7 @@ in
       py.black
       py.flake8
       py.isort
+      py.pip
       pyright
       python313
       qbittorrent
@@ -212,6 +214,7 @@ in
       tree
       typescript-language-server
       vscode
+      whisper-cpp
       # Sway and Wayland related packages
       brightnessctl
       pamixer
