@@ -132,6 +132,7 @@ in
       cargo
       clippy
       codespell
+      copyq
       curl
       docker-compose
       eb-garamond
@@ -197,7 +198,6 @@ in
       py.black
       py.flake8
       py.isort
-      py.pip
       pyright
       python313
       qbittorrent
