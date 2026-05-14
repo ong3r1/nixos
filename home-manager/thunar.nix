@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     xfce.thunar
     xfce.thunar-archive-plugin
@@ -7,7 +6,7 @@
     xfce.thunar-vcs-plugin
   ];
 
-    # Wrap thunar with correct plugin path
+  # Wrap thunar with correct plugin path
   home.file.".local/bin/thunar".text = ''
     #!/usr/bin/env bash
     export THUNARX_DIRS="${pkgs.xfce.thunar-archive-plugin}/lib/thunarx-3"

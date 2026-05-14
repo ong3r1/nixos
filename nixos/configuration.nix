@@ -229,7 +229,9 @@ in
       android-tools
       dbus
       ffmpeg
+      glib
       gnupg
+      gvfs
       pinentry-gtk2
       qemu_kvm
       sops
@@ -265,6 +267,7 @@ in
   # Sway
   programs = {
     hyprland.enable = true;
+    kdeconnect.enable = true;
     zsh = {
       enable = true;
     };
@@ -282,6 +285,10 @@ in
   services = {
     # Ensure DBus is enabled (critical)
     dbus.enable = true;
+
+    gvfs.enable = true;
+    tumbler.enable = true; # thumbnails in Thunar
+    udisks2.enable = true;
 
     journald.extraConfig = ''
       SystemMaxUse=1G
