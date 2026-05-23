@@ -130,6 +130,7 @@ in
 
     packages = with pkgs; [
       alejandra
+      appimage-run
       bat
       blueberry
       btop
