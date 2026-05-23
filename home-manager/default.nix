@@ -13,13 +13,13 @@ in
     ./file-manager.nix
 
     # GTK
-    ./gtk.nix
+    # ./gtk.nix
 
     # Ghostty
     ./ghostty.nix
 
     # Qt
-    ./qt.nix
+    # ./qt.nix
 
     # walker
     ./walker.nix
@@ -31,7 +31,7 @@ in
     ./starship.nix
 
     # Import hyprland configuration
-    ./hyprland.nix
+    # ./hyprland.nix
 
     # Import the Tmux configuration
     ./tmux.nix
@@ -116,11 +116,16 @@ in
         recursive = true;
       };
 
-      # Hyprland
-      ".config/hypr" = {
-        source = ../dotfiles/config/hypr;
+      ".config/espanso" = {
+        source = ../dotfiles/config/espanso;
         recursive = true;
       };
+
+      # Hyprland
+      # ".config/hypr" = {
+      #   source = ../dotfiles/config/hypr;
+      #   recursive = true;
+      # };
     };
 
     packages = with pkgs; [
@@ -162,14 +167,17 @@ in
       gthumb
       httpie
       httpie-desktop
-      hypridle
-      hyprlock
-      hyprpanel
-      hyprpaper
+      # hypridle
+      # hyprlock
+      # hyprpanel
+      # hyprpaper
       imagemagick
       inkscape
       jq
       just
+      kde.kate
+      kde.ark
+      kde.spectacle
       kind
       kubectl
       lazygit
@@ -225,6 +233,7 @@ in
       unzip
       wl-clipboard
       wtype
+      xclip
     ];
   };
 
@@ -288,6 +297,9 @@ in
   };
 
   services = {
+    espanso = {
+      enable = true;
+    };
     gpg-agent = {
       enable = true;
       enableSshSupport = true;

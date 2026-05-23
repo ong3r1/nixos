@@ -164,8 +164,8 @@ in
       enable = true;
       wlr.enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
         xdg-desktop-portal-gtk
+        kdePackages.xdg-desktop-portal-kde
       ];
     };
   };
@@ -219,40 +219,6 @@ in
     LC_TIME = "en_GB.UTF-8";
   };
 
-  # Environment variables
-  environment = {
-    variables = {
-      XDG_SESSION_TYPE = "wayland";
-    };
-    systemPackages = with pkgs; [
-      alsa-utils
-      android-tools
-      dbus
-      ffmpeg
-      glib
-      gnupg
-      gvfs
-      pinentry-gtk2
-      qemu_kvm
-      sops
-      swtpm
-    ];
-    etc = {
-      "gnupg/gpg-agent.conf".text = lib.mkForce ''
-        pinentry-program ${pkgs.pinentry-gtk2}/bin/pinentry
-        default-cache-ttl 600
-        max-cache-ttl 7200
-        allow-loopback-pinentry
-      '';
-      "loader/loader.conf".text = ''
-        default nixos
-        timeout 3
-        console-mode max
-        editor   no
-      '';
-    };
-  };
-
   # Sops
   sops = {
     defaultSopsFile = ./secrets/secrets.yml;
@@ -266,7 +232,6 @@ in
 
   # Sway
   programs = {
-    hyprland.enable = true;
     kdeconnect.enable = true;
     zsh = {
       enable = true;
@@ -300,18 +265,25 @@ in
 
     tailscale.enable = true;
 
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      theme = "${custom-astronaut}/share/sddm/themes/sddm-astronaut-theme";
-      package = pkgs.kdePackages.sddm;
-      extraPackages = [
-        custom-astronaut
-        pkgs.kdePackages.qtmultimedia
-        pkgs.kdePackages.qtsvg
-        pkgs.kdePackages.qt5compat # Needed for some animations/effects
-      ];
+    xserver.enable = true;
+    desktopManager.plasma6.enable = true;
+    displayManager = {
+      sddm = {
+        enable = true;
+        wayland.enable = true;
+      };
     };
+
+    # displayManager.sddm = {
+    #   wayland.enable = true;
+    #   theme = "${custom-astronaut}/share/sddm/themes/sddm-astronaut-theme";
+    #   extraPackages = [
+    #     custom-astronaut
+    #     pkgs.kdePackages.qtmultimedia
+    #     pkgs.kdePackages.qtsvg
+    #     pkgs.kdePackages.qt5compat # Needed for some animations/effects
+    #   ];
+    # };
 
     printing = {
       enable = true;
@@ -358,11 +330,11 @@ in
       enable = true;
       settings = {
         # CPU Governor
-        CPU_SCALING_GOVERNOR_ON_AC = "powersave"; # Update this to `performance` when we get a battery
+        CPU_SCALING_GOVERNOR_ON_AC = "performance"; # Update this to `performance` when we get a battery
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
         # Energy Performance Preference (EPP)
-        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_power"; # Update this to `performance` when we get a battery
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance"; # Update this to `performance` when we get a battery "balance_power" default
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
 
         # Update this when we get a battery
