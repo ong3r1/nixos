@@ -132,7 +132,6 @@ in
       alejandra
       appimage-run
       bat
-      blueberry
       btop
       calligraplan
       cargo
@@ -163,9 +162,7 @@ in
       gotools
       golangci-lint
       gopls
-      grimblast
       gromit-mpx
-      gthumb
       httpie
       httpie-desktop
       # hypridle
@@ -217,12 +214,13 @@ in
       seahorse
       sqlcheck
       sqls
+      sqlite
+      texliveFull
       thunderbird
       tmuxinator
       tor-browser
       tree
       typescript-language-server
-      vscode
       whisper-cpp
       # Sway and Wayland related packages
       brightnessctl
