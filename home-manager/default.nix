@@ -196,6 +196,7 @@ in
       nodePackages.prettier
       obsidian
       oh-my-zsh
+      ollama
       orbitron
       p7zip
       pgformatter
